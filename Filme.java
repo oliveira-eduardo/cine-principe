@@ -26,4 +26,8 @@ public class Filme {
         return valor;
     }
 
+    @Override
+    public String toString(){
+        return  "Filme: " + this.nome + " Duração: " + this.duracao + " Genero: " + this.sinopse + " Valor: " + this.valor + "\n";
+    }
 }
