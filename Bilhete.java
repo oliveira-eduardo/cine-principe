@@ -9,6 +9,8 @@ public class Bilhete {
         this.indiceDaSessao = indiceDaSessao;
     }
 
+    /*usuário ----------------------------------------------------------------------------- */
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -17,7 +19,7 @@ public class Bilhete {
         this.usuario = usuario;
     }
 
-    /*teste ----------------------------------------------------------------------- */
+    /*itens dentro de usuário ----------------------------------------------------------------------- */
 
     public String getUser() {
         return usuario.getUser();
@@ -27,7 +29,7 @@ public class Bilhete {
         return usuario.getCpf();
     }
 
-    /*----------------------------------------------------------------------------- */
+    /*sala ----------------------------------------------------------------------------- */
 
     public Sala getSala() {
         return sala;
@@ -37,16 +39,27 @@ public class Bilhete {
         this.sala = sala;
     }
 
-    /*----------------------------------------------------------------------------- */
+    /*itenas dentro de sala ----------------------------------------------------------------------------- */
+
+    public Sessao getSessao() {
+        return sala.getSessoes()[indiceDaSessao];
+    }
 
     public String getHorario() {
-        return sessao.getHorario();
+        return sala.getSessoes()[indiceDaSessao].getHorario();
+    }
+
+    public float getValor() {
+        return sala.getSessoes()[indiceDaSessao].getFilme().getValor();
     }
 
     public String getNomeDoFilme() {
-        return sessao.getFilme().getNome();
+        return sala.getSessoes()[indiceDaSessao].getFilme().getNome();
     }
 
     /*----------------------------------------------------------------------------- */
-    
+    @Override
+    public String toString() {
+        return "Nome: " + this.getUser() + " Cpf: " + this.getCpf() + " Sessao: " + this.indiceDaSessao + " Filme: " + this.getNomeDoFilme() + " Valor: " + this.getValor();
+    }
 }
