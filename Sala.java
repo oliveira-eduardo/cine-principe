@@ -18,12 +18,13 @@ public class Sala {
         String resultado = "";
         int contador = 1;
 
-        for (int i = 0; i < 7; i++) {
-            if (this.sessoes[i].getFilme() != null) {
+        for (int i = 0; i < this.sessoes.length; i++) {
+            
+            if (this.sessoes[i] != null) {
                 resultado += "| Sessão " + contador + ": " + this.sessoes[i] + " ";
                 contador++; 
             }
         }
-        return resultado + "|";
+        return resultado + "| \n";
         }
 }

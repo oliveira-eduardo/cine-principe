@@ -25,6 +25,8 @@ public class Main {
         Sala sala3 = new Sala(Sessao());
 
         Scanner leitor = new Scanner(System.in);
+        System.out.println(sala1);
+        System.out.println(sala2);
 
         /* switch (leitor) {
             case :
@@ -40,14 +42,13 @@ public class Main {
         Random gerador = new Random();
         Sessao [] sessoes = new Sessao[7];
         String[] horarios = {"08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00"};
+        int contador = 0;
 
         for(int i = 0; i < 7; i++){
             int quantidadeSessoes = gerador.nextInt(8);       
-            if(quantidadeSessoes >= 7){
-                sessoes [i] = new Sessao(null, horarios[i]);
-            }
-            else{
-                sessoes [i] = new Sessao(Filmes(quantidadeSessoes), horarios[i]);
+            if(quantidadeSessoes < 7){
+                sessoes [contador] = new Sessao(Filmes(quantidadeSessoes), horarios[i]);
+                contador ++;
             }
         }
         return sessoes;
