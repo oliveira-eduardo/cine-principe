@@ -1,20 +1,52 @@
 public class Bilhete {
-    private String nome; 
-    private String cpf;
-    private String filme;
-    private String horario; 
-    private String sessao;
-    private String sala; 
-    private float  valor;
-    private String cadeiraComprada; 
+    private Usuario usuario;
+    private Sala sala;
+    private int indiceDaSessao;
 
-    public Bilhete(Usuario usuario,Filme filme, Sessao sessao, Sala sala, Compra compra){
-        this.nome = usuario.getUser();
-        this.cpf = usuario.getCpf();
-        this.sessao = sessao; //não sei os nomes dos atributos que vão ser na sessão, sala e compra
-        this.valor = compra.getValor();
-        this.cadeiraComprada = compra.getCadeira();
-
+    public Bilhete(Usuario usuario, Sala sala, int indiceDaSessao){
+        this.usuario = usuario;
+        this.sala = sala;
+        this.indiceDaSessao = indiceDaSessao;
     }
-}
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    /*teste ----------------------------------------------------------------------- */
+
+    public String getUser() {
+        return usuario.getUser();
+    }
+
+    public String getCpf() {
+        return usuario.getCpf();
+    }
+
+    /*----------------------------------------------------------------------------- */
+
+    public Sala getSala() {
+        return sala;
+    }
+
+    public void setSala(Sala sala) {
+        this.sala = sala;
+    }
+
+    /*----------------------------------------------------------------------------- */
+
+    public String getHorario() {
+        return sessao.getHorario();
+    }
+
+    public String getNomeDoFilme() {
+        return sessao.getFilme().getNome();
+    }
+
+    /*----------------------------------------------------------------------------- */
+    
+}
