@@ -43,7 +43,7 @@ public class Sessao {
             System.out.println("");
         }
     }
-    public void escolhaCadeira(int x,  int y){
+    public void escolhaCadeira(int x,  int y){ //opção cadeira de acordo bilhete
         int [][]cadeirasDisponiveis = getCadeira();
         cadeirasDisponiveis[x][y] = 1;
         setCadeira(cadeira);
