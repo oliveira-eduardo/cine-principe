@@ -26,12 +26,6 @@ public class Main {
 
         Scanner leitor = new Scanner(System.in);
 
-        System.out.println("Sala 1 teste");
-        System.out.println(sala1);
-        System.out.println("------------------------------------------------------------------------------------------");
-        System.out.println("Sala 2 teste");
-        System.out.println(sala2);
-
         /* switch (leitor) {
             case :
                 
@@ -45,13 +39,12 @@ public class Main {
     public static Sessao [] Sessao(){
         Random gerador = new Random();
         Sessao [] sessoes = new Sessao[7];
-        Filme semFilme = new Filme("Estamos sem sessão esse horário ","","",0.0f);
         String[] horarios = {"08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00"};
 
         for(int i = 0; i < 7; i++){
             int quantidadeSessoes = gerador.nextInt(8);       
             if(quantidadeSessoes >= 7){
-                sessoes [i] = new Sessao(semFilme, horarios[i]);
+                sessoes [i] = new Sessao(null, horarios[i]);
             }
             else{
                 sessoes [i] = new Sessao(Filmes(quantidadeSessoes), horarios[i]);
@@ -74,7 +67,6 @@ public class Main {
         filmes [6] = new Filme("A única saida", "2h 19m", "Comédia/Thriller", 25.0f);
 
         return filmes[num];
-
     }
 
     public static Usuario Cadastro(){
