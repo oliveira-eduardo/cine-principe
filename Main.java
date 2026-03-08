@@ -15,59 +15,66 @@ public class Main {
         cadeira.escolhaCadeira(x, y);
         cadeira.cadeirasDisponiveis();
         */
-       Catalogo();
+       Sala();
+
     }
 
-    public static void Catalogo(){
+    public static void Sala(){ 
+        Sala sala1 = new Sala(Sessao());
+        Sala sala2 = new Sala(Sessao());
+        Sala sala3 = new Sala(Sessao());
+
+        Scanner leitor = new Scanner(System.in);
+
+        System.out.println("Sala 1 teste");
+        System.out.println(sala1);
+        System.out.println("------------------------------------------------------------------------------------------");
+        System.out.println("Sala 2 teste");
+        System.out.println(sala2);
+
+        /* switch (leitor) {
+            case :
+                
+                break;
+            default:
+                throw new AssertionError();
+        }
+ */
+    }
+
+    public static Sessao [] Sessao(){
         Random gerador = new Random();
+        Sessao [] sessoes = new Sessao[7];
+        Filme semFilme = new Filme("Estamos sem sessão esse horário ","","",0.0f);
         String[] horarios = {"08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00"};
 
         for(int i = 0; i < 7; i++){
             int quantidadeSessoes = gerador.nextInt(8);       
-            if(quantidadeSessoes < 1){
-                System.out.println("Horário: " + horarios[i] + " Sem sessão nesse horário ");
+            if(quantidadeSessoes >= 7){
+                sessoes [i] = new Sessao(semFilme, horarios[i]);
             }
             else{
-                System.out.println("Horário: " + horarios[i]);
-                Filmes(quantidadeSessoes); 
+                sessoes [i] = new Sessao(Filmes(quantidadeSessoes), horarios[i]);
             }
         }
+        return sessoes;
     }
 
 
-    public static void Filmes(int num){
+    public static Filme Filmes(int num){
 
-        Filme f1 = new Filme("Agente Secreto", "2h40m", "Thriller/Crime", "25.0");
-        Filme f2 = new Filme("Hamnet", "2h 5m", "Tragédia/Drama", "30.0");
-        Filme f3 = new Filme("Valor Sentimental", "2h 13m", "Drama/Tragicomedy", "20.0");
-        Filme f4 = new Filme("Uma Batalha Após a Outra", "2h 42m", "Drama/Ação e suspense", "22.0");
-        Filme f5 = new Filme("Sonhos de Trem", "1h 43m", " Drama", "18.0");
-        Filme f6 = new Filme("Pecadores", "2h 17", "Terror/Ação", "20.0");
-        Filme f7 = new Filme("A única saida", "2h 19m", "Comédia/Thriller", "25.0");
+        Filme [] filmes = new Filme [7];
 
-        switch (num) {
-            case 1:
-                System.out.print(f1);
-                break;
-            case 2:
-                System.out.print(f2);
-                break;
-            case 3:
-                System.out.print(f3);
-                break;
-            case 4:
-                System.out.print(f4);
-                break;
-            case 5:
-                System.out.print(f5);
-                break;
-            case 6:
-                System.out.print(f6);
-                break;
-            case 7:
-                System.out.print(f7);
-                break;
-        }
+        filmes [0] = new Filme("Agente Secreto", "2h40m", "Thriller/Crime", 25.0f);
+        filmes [1] = new Filme("Hamnet", "2h 5m", "Tragédia/Drama", 30.0f);
+        filmes [2] = new Filme("Valor Sentimental", "2h 13m", "Drama/Tragicomedy", 20.0f);
+        filmes [3] = new Filme("Uma Batalha Após a Outra", "2h 42m", "Drama/Ação e suspense", 22.0f);
+        filmes [4] = new Filme("Sonhos de Trem", "1h 43m", " Drama", 18.0f);
+        filmes [5] = new Filme("Pecadores", "2h 17", "Terror/Ação", 20.0f);
+        filmes [6] = new Filme("A única saida", "2h 19m", "Comédia/Thriller", 25.0f);
+
+        return filmes[num];
+
     }
 
     public static Usuario Cadastro(){

@@ -50,6 +50,10 @@ public class Sessao {
 
 
     }
+    @Override
+    public String toString() {
+        return "" + this.filme.getNome() + " Horário: " + this.horario;
+    }
     
 }  
     
