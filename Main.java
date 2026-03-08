@@ -135,5 +135,10 @@ public class Main {
     public static boolean verificadorIdade(int idade){
         return idade >= 1 && idade <= 130;
     }
+    public static void menu(){
+        System.out.print("1 - Cadastro");
+        System.out.print("2 - Comprar billhete");
+        System.out.print("0 - Sair");
 
+    }
 }
