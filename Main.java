@@ -20,22 +20,16 @@ public class Main {
     }
 
     public static void Sala(){ 
-        Sala sala1 = new Sala(Sessao());
-        Sala sala2 = new Sala(Sessao());
-        Sala sala3 = new Sala(Sessao());
+        Sala salaTradicional = new Sala(Sessao());
+        Sala salaImax = new Sala(Sessao());
+        Sala sala3D = new Sala(Sessao());
 
         Scanner leitor = new Scanner(System.in);
-        System.out.println(sala1);
-        System.out.println(sala2);
+        System.out.println(salaTradicional);
+        System.out.println(salaImax);
+        System.out.println(sala3D);
+        leitor.close();
 
-        /* switch (leitor) {
-            case :
-                
-                break;
-            default:
-                throw new AssertionError();
-        }
- */
     }
 
     public static Sessao [] Sessao(){

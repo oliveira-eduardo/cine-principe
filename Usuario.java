@@ -94,6 +94,9 @@ public class Usuario {
     public String getCodigo_verificador_do_cartao() {
         return codigo_verificador_do_cartao;
     }
+
+    // validarcpf() retorna boolean
+    // exibirPerfil() retorna string com informações importantes
  
     @Override
     public String toString(){
