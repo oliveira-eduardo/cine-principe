@@ -43,10 +43,7 @@ public class Filme {
         this.valor = valor;
     }
 
-    
-
-    @Override
-    public String toString(){
+    public String mostrarFilme(){
         return  "Filme: " + this.nome + " Duração: " + this.duracao + " Genero: " + this.sinopse + " Valor: " + this.valor + "\n";
     }
 }

@@ -8,26 +8,27 @@ public class Compra {
         JUJUBA        
     }
 
-    private Sessao sessao;      // sessão escolhida pelo usuário
+    private Sala sala;      // sessão escolhida pelo usuário
     private String cadeira;     // cadeira que foi comprada
     private float valor;        // valor da compra
 
-    public Compra() {
-        
-    }
-
-    public Sessao getSessao() {
-        return sessao;
-    }
-
-    public void setSessao(Sessao sessao) {
-        this.sessao = sessao;
+    public Compra(Sala sala, String cadeira, float valor) {
+        this.sala = sala;
+        this.cadeira = cadeira;
+        this.valor = valor;
     }
 
     public String getCadeira() {
         return cadeira;
     }
 
+    public Sala getSala() {
+        return sala;
+    }
+
+    public void setSala(Sala sala) {
+        this.sala = sala;
+    }
     public void setCadeira(String cadeira) {
         this.cadeira = cadeira;
     }
@@ -42,17 +43,13 @@ public class Compra {
 
     public static int escolherSessao() {
         Scanner leitor = new Scanner(System.in);
-        
         System.out.println("Escolha a sessão desejada:");
         int opcao = leitor.nextInt();
 
         return opcao;
     }
-    public static int numero_de_bilhetes(){
-        Scanner leitor = new Scanner(System.in);
-        System.out.println("Quantos bilhetes deseja comprar?");
-        int numero_de_bilhetes = leitor.nextInt();
-        return numero_de_bilhetes;
+    public static int numero_de_bilhetes(int numBilhetes){
+        return numBilhetes;
     }
     public static void escolherProduto(){
         Scanner leitor = new Scanner(System.in);
@@ -60,7 +57,7 @@ public class Compra {
         String resposta = leitor.nextLine();
 
     }
-    public static float calcularvalor(int numero_de_bilhetes, Sala sala, int indiceDaSessao){
+    public float calcularvalor(int numero_de_bilhetes, int indiceDaSessao){
         return numero_de_bilhetes * sala.getSessoes()[indiceDaSessao].getFilme().getValor();
     }
 

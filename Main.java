@@ -2,7 +2,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-       
+        Sala Filme3d = new Sala();
+        Sala imaxSala = new Sala();
+        Sala tradicionSala = new Sala();
         //Usuario usuario = Cadastro();
        /*  Filme filme = new Filme("avengers","b","c",20.0f);
         Sessao cadeira = new Sessao(filme, "20:40");
@@ -16,8 +18,9 @@ public class Main {
         Sala imax = new Sala();
         System.out.println(Filme3d);
         System.out.println(imax); */
-        Sala Filme3d = new Sala();
-        System.out.println(Filme3d.mostrarSala());
+     
+
+
     }
 
     public static Usuario Cadastro(){
