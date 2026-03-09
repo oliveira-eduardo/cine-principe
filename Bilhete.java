@@ -57,9 +57,20 @@ public class Bilhete {
         return sala.getSessoes()[indiceDaSessao].getFilme().getNome();
     }
 
-    /*----------------------------------------------------------------------------- */
-    @Override
-    public String toString() {
-        return "Nome: " + this.getUser() + " Cpf: " + this.getCpf() + " Sessao: " + this.indiceDaSessao + " Filme: " + this.getNomeDoFilme() + " Valor: " + this.getValor();
+    /*metodos ----------------------------------------------------------------------------- */
+    
+    //incrementar posteriormente
+    public float calcularPreco(char tipoDoBilhete) {
+        if(tipoDoBilhete == 'i') {
+            return getValor();
+        } else {
+            return getValor()/2;
+        }
     }
+
+    //incrementar posteriormente
+    public String gerarBilhete() {
+        return "Nome: " + getUser() + " Cpf: " + getCpf() + " Sessao: " + (indiceDaSessao+1) + " Filme: " + getNomeDoFilme() + " Valor: " + getValor();
+    }
+
 }
