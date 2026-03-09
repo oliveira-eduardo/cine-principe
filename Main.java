@@ -1,4 +1,3 @@
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -15,58 +14,10 @@ public class Main {
         cadeira.escolhaCadeira(x, y);
         cadeira.cadeirasDisponiveis();
         */
-       Sala();
-
-    }
-
-    public static void Sala(){ 
-        Sala salaTradicional = new Sala("Tradicional", Sessao());
-        Sala salaImax = new Sala("IMAX", Sessao());
-        Sala sala3D = new Sala("3D",Sessao());
-
-        Scanner leitor = new Scanner(System.in);
-        System.out.println(salaTradicional);
-        System.out.println(salaImax);
-        System.out.println(sala3D);
-
-        Usuario usuario = new Usuario("eduardo", "1234", "4a1s24", 25, "m", "41242sfa@gmail.com", "eduardo andrade", "123231", "333");
-        Bilhete bilhete = new Bilhete(usuario, sala3D, 0);
-        System.out.println(bilhete.gerarBilhete());
-
-        leitor.close();
-
-    }
-
-    public static Sessao [] Sessao(){
-        Random gerador = new Random();
-        Sessao [] sessoes = new Sessao[7];
-        String[] horarios = {"08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00"};
-        int contador = 0;
-
-        for(int i = 0; i < 7; i++){
-            int quantidadeSessoes = gerador.nextInt(8);       
-            if(quantidadeSessoes < 7){
-                sessoes [contador] = new Sessao(Filmes(quantidadeSessoes), horarios[i]);
-                contador ++;
-            }
-        }
-        return sessoes;
-    }
-
-
-    public static Filme Filmes(int num){
-
-        Filme [] filmes = new Filme [7];
-
-        filmes [0] = new Filme("Agente Secreto", "2h40m", "Thriller/Crime", 25.0f);
-        filmes [1] = new Filme("Hamnet", "2h 5m", "Tragédia/Drama", 30.0f);
-        filmes [2] = new Filme("Valor Sentimental", "2h 13m", "Drama/Tragicomedy", 20.0f);
-        filmes [3] = new Filme("Uma Batalha Após a Outra", "2h 42m", "Drama/Ação e suspense", 22.0f);
-        filmes [4] = new Filme("Sonhos de Trem", "1h 43m", " Drama", 18.0f);
-        filmes [5] = new Filme("Pecadores", "2h 17", "Terror/Ação", 20.0f);
-        filmes [6] = new Filme("A única saida", "2h 19m", "Comédia/Thriller", 25.0f);
-
-        return filmes[num];
+        Sala imax = new Sala();
+        Sala Filme3d = new Sala();
+        System.out.println(imax);
+        System.out.println(Filme3d);
     }
 
     public static Usuario Cadastro(){
@@ -119,7 +70,6 @@ public class Main {
         
         entrada.close();
         Usuario usuario = new Usuario(user, cpf, senha, idade, sexo, email, nome_do_cartao, numero_do_cartao, codigo_verificador_do_cartao);
-        System.out.println(usuario);
         return usuario;
     }
 
@@ -138,6 +88,5 @@ public class Main {
         System.out.print("1 - Cadastro");
         System.out.print("2 - Comprar billhete");
         System.out.print("0 - Sair");
-
     }
 }
