@@ -55,8 +55,7 @@ public class Sala {
         return filmes[num];
     }
 
-    @Override
-    public String toString(){
+    public String mostrarSala(){
         String resultado = "";
         int contador = 1;
 

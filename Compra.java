@@ -40,16 +40,13 @@ public class Compra {
         this.valor = valor;
     }
 
-
-    public static Sessao escolherSessao(Sessao[] sessoes) {
+    public static int escolherSessao() {
         Scanner leitor = new Scanner(System.in);
+        
         System.out.println("Escolha a sessão desejada:");
-        for (int i = 0; i < sessoes.length; i++) {
-            System.out.printf("%d - %s%n", i + 1, sessoes[i]);
-        }
-
         int opcao = leitor.nextInt();
-        return sessoes[opcao];
+
+        return opcao;
     }
     public static int numero_de_bilhetes(){
         Scanner leitor = new Scanner(System.in);

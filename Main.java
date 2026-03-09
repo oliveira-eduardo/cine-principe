@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
        
         //Usuario usuario = Cadastro();
-        /*Filme filme = new Filme("avengers","b","c","d");
+       /*  Filme filme = new Filme("avengers","b","c",20.0f);
         Sessao cadeira = new Sessao(filme, "20:40");
         cadeira.cadeirasDisponiveis();
         Scanner leitor = new Scanner(System.in);
@@ -13,11 +13,11 @@ public class Main {
         y = leitor.nextInt();
         cadeira.escolhaCadeira(x, y);
         cadeira.cadeirasDisponiveis();
-        */
         Sala imax = new Sala();
-        Sala Filme3d = new Sala();
-        System.out.println(imax);
         System.out.println(Filme3d);
+        System.out.println(imax); */
+        Sala Filme3d = new Sala();
+        System.out.println(Filme3d.mostrarSala());
     }
 
     public static Usuario Cadastro(){
