@@ -62,6 +62,35 @@ public class Sessao {
             return "Cadeira ocupada!";
         }
     }
+    public String buscarCadeirajuntas(int numeroDeBilhetes){
+        int [][]cadeirasDisponiveis = getCadeira();
+        String sugestao = "";
+        int contador = 0;
+        for(int i = 0; i < 10; i++){
+            for(int j = 0; j < 15 - numeroDeBilhetes + 1; j++){
+                boolean cadeirasJuntas = true;
+                for(int k = 0; k < numeroDeBilhetes; k++){
+                    if(cadeirasDisponiveis[i][j+k] == 1){
+                        cadeirasJuntas = false;
+                        break;
+                    }
+                }
+                if(cadeirasJuntas){
+                    sugestao += "|";
+
+                    for(int k = 0; k < numeroDeBilhetes; k++){
+                        sugestao += (char)('A' + i) + Integer.toString(j+k+1) + " ";
+                    }
+                    sugestao += "|";
+                    contador++;
+                    if (contador == 3){
+                        return sugestao;
+                    }
+                }   
+            }
+        }
+        return sugestao;
+    }
     @Override
     public String toString() {
         if(this.filme == null){

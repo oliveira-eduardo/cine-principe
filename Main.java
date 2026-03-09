@@ -18,6 +18,7 @@ public class Main {
         Sala imax = new Sala();
         System.out.println(Filme3d);
         System.out.println(imax); */
+        System.out.println(Filme3d.getSessoes[0]().buscarCadeirajuntas(5));
      
 
 
@@ -88,8 +89,10 @@ public class Main {
         return idade >= 1 && idade <= 130;
     }
     public static void menu(){
+
         System.out.print("1 - Cadastro");
         System.out.print("2 - Comprar billhete");
         System.out.print("0 - Sair");
     }
+    
 }
