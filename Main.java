@@ -20,14 +20,19 @@ public class Main {
     }
 
     public static void Sala(){ 
-        Sala salaTradicional = new Sala(Sessao());
-        Sala salaImax = new Sala(Sessao());
-        Sala sala3D = new Sala(Sessao());
+        Sala salaTradicional = new Sala("Tradicional", Sessao());
+        Sala salaImax = new Sala("IMAX", Sessao());
+        Sala sala3D = new Sala("3D",Sessao());
 
         Scanner leitor = new Scanner(System.in);
         System.out.println(salaTradicional);
         System.out.println(salaImax);
         System.out.println(sala3D);
+
+        Usuario usuario = new Usuario("eduardo", "1234", "4a1s24", 25, "m", "41242sfa@gmail.com", "eduardo andrade", "123231", "333");
+        Bilhete bilhete = new Bilhete(usuario, sala3D, 0);
+        System.out.println(bilhete.gerarBilhete());
+
         leitor.close();
 
     }

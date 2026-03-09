@@ -41,6 +41,10 @@ public class Bilhete {
 
     /*itenas dentro de sala ----------------------------------------------------------------------------- */
 
+    public String getNomeDaSala() {
+        return sala.getNomeDaSala();
+    }
+
     public Sessao getSessao() {
         return sala.getSessoes()[indiceDaSessao];
     }
@@ -70,7 +74,7 @@ public class Bilhete {
 
     //incrementar posteriormente
     public String gerarBilhete() {
-        return "Nome: " + getUser() + " Cpf: " + getCpf() + " Sessao: " + (indiceDaSessao+1) + " Filme: " + getNomeDoFilme() + " Valor: " + getValor();
+        return "Nome: " + getUser() + " Cpf: " + getCpf() + " Sala: " + getNomeDaSala() + " Sessao: " + (indiceDaSessao+1) + " Filme: " + getNomeDoFilme() + " Valor: " + getValor();
     }
 
 }
