@@ -47,7 +47,7 @@ public class Main {
                     System.out.println("Digite a sessão:");
                     int numSessao = leitor.nextInt() - 1;
 
-                    System.out.print(" Valor do bilhete: " + salaSelecionada.getSessoes()[numSessao].getFilme().getValor() + " Digite a quantidade de bilhetes: ");
+                    System.out.print("Valor do bilhete: " + salaSelecionada.getSessoes()[numSessao].getFilme().getValor() + "\n" +"Digite a quantidade de bilhetes: ");
                     int quantBilhete = leitor.nextInt();
 
                     if (numSessao >= 0 && numSessao < 7 && salaSelecionada.getSessoes()[numSessao] != null && quantBilhete > 0) {
@@ -55,13 +55,13 @@ public class Main {
 
                         if(quantBilhete > 1){
                             String sugestao = sessaoAtiva.buscarCadeirajuntas(quantBilhete);
-                            System.out.println("Sugestao de cadeira: " + sugestao);
+                            System.out.println("\nSugestao de cadeira: " + sugestao);
                             System.out.println(" Cadeiras para: " + sessaoAtiva.getFilme().getNome());
                             sessaoAtiva.cadeirasDisponiveis();
 
                         }
                         else{
-                            System.out.println(" Cadeiras para: " + sessaoAtiva.getFilme().getNome());
+                            System.out.println("Cadeiras para: " + sessaoAtiva.getFilme().getNome());
                             sessaoAtiva.cadeirasDisponiveis();
 
                         }
@@ -88,7 +88,7 @@ public class Main {
                             
                         }
                         Scanner leitorCompra = new Scanner(System.in);
-                        System.out.println("Deseja comprar snack?");
+                        System.out.println("\nDeseja comprar snack?");
                         Compra compra = new Compra(sessaoAtiva);
                         System.out.println(compra.listarProdutos());
                         int item, qntd;
