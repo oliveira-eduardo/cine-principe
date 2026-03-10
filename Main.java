@@ -47,7 +47,7 @@ public class Main {
                     System.out.println("Digite a sessão:");
                     int numSessao = leitor.nextInt() - 1;
 
-                    System.out.print(" Valor do bilhete: " + salaSelecionada.getSessoes()[numSessao].getFilme().getValor() + "Digite a quantidade de bilhetes: ");
+                    System.out.print(" Valor do bilhete: " + salaSelecionada.getSessoes()[numSessao].getFilme().getValor() + " Digite a quantidade de bilhetes: ");
                     int quantBilhete = leitor.nextInt();
 
                     if (numSessao >= 0 && numSessao < 7 && salaSelecionada.getSessoes()[numSessao] != null && quantBilhete > 0) {
@@ -73,21 +73,36 @@ public class Main {
 
                             if (sessaoAtiva.escolhaCadeira(x, y)) {
                                 if(cliente != null){
-
-                                    for(int k = 0; k < quantBilhete; k++) {
-                                        ticket[k] = new Bilhete(cliente, salaSelecionada, numSessao, "");
-                                    }
-                                    System.out.println(ticket.gerarBilhete());
+                                    String cadeira = Integer.toString(x) + Integer.toString(y);
+                                    ticket[i] = new Bilhete(cliente, salaSelecionada, numSessao, cadeira);                                   
                                 }
                                 else{
                                     System.out.println("Sem Cadastro");
+                                    Cadastro(leitor);                
                                 }
                             }
                             else{
                                 System.out.println("Cadeira ocupada");
                                 i--;
                             }
+                            
                         }
+                        Scanner leitorCompra = new Scanner(System.in);
+                        System.out.println("Deseja comprar snack?");
+                        Compra compra = new Compra(sessaoAtiva);
+                        System.out.println(compra.listarProdutos());
+                        int item, qntd;
+                        item = leitorCompra.nextInt();
+                        System.out.println("Digite a quantidade: ");
+                        qntd = leitorCompra.nextInt();
+                        compra.calcularValorSnack(item, qntd);
+                        compra.calcularValorTotal(quantBilhete);
+                        System.out.println("Valor total da compra: " + compra.getValorTotal());
+                        for(int i = 0; i < quantBilhete; i++){
+                            System.out.printf("Bilhete %d: " + ticket[i].gerarBilhete() + "\n", i);
+                        }
+
+
                     } else {
                         System.out.println("Sessão invalida");
                     }
