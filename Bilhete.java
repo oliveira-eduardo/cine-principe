@@ -2,11 +2,29 @@ public class Bilhete {
     private Usuario usuario;
     private Sala sala;
     private int indiceDaSessao;
+    private String cadeira;
 
-    public Bilhete(Usuario usuario, Sala sala, int indiceDaSessao){
+    public Bilhete(Usuario usuario, Sala sala, int indiceDaSessao, String cadeira){
         this.usuario = usuario;
         this.sala = sala;
         this.indiceDaSessao = indiceDaSessao;
+        this.cadeira = cadeira;
+    }
+
+    public int getIndiceDaSessao() {
+        return indiceDaSessao;
+    }
+
+    public void setIndiceDaSessao(int indiceDaSessao) {
+        this.indiceDaSessao = indiceDaSessao;
+    }
+
+    public String getCadeira() {
+        return cadeira;
+    }
+
+    public void setCadeira(String cadeira) {
+        this.cadeira = cadeira;
     }
 
     /*usuário ----------------------------------------------------------------------------- */
@@ -74,7 +92,9 @@ public class Bilhete {
 
     //incrementar posteriormente
     public String gerarBilhete() {
-        return "Nome: " + getUser() + " Cpf: " + getCpf() + " Sala: " + getNomeDaSala() + " Sessao: " + (indiceDaSessao+1) + " Filme: " + getNomeDoFilme() + " Valor: " + getValor();
+        return "Nome: " + getUser() + " Cpf: " + getCpf() + " Sala: " + getNomeDaSala()
+         + " Sessao: " + (indiceDaSessao+1) + " Filme: " + getNomeDoFilme() + " Valor: " + getValor()
+         + " Cadeira: " + getCadeira();
     }
 
 }

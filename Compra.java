@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class Compra {
     private enum Produtos {
         PIPOCA(30.0),
@@ -17,23 +15,13 @@ public class Compra {
             return preco;
         }
 
-        public void setPreco(double preco) {
-            this.preco = preco;   
-        }
     }
 
     private Sessao sessao;      // sessão escolhida pelo usuário
-    private String cadeira;     // cadeira que foi comprada
-    private double valor;        // valor da compra
+    private double valor = 0.0;        // valor da compra
 
-    public Compra(Sessao sessao, String cadeira) {
+    public Compra(Sessao sessao) {
         this.sessao = sessao;
-        this.cadeira = cadeira;
-        valor = 0.0;
-    }
-
-    public String getCadeira() {
-        return cadeira;
     }
 
     public Sessao getSessao() {

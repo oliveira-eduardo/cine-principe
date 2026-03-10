@@ -65,24 +65,28 @@ public class Main {
                             sessaoAtiva.cadeirasDisponiveis();
 
                         }
+                        Bilhete[] ticket = new Bilhete[quantBilhete];
                         for(int i =0; i < quantBilhete; i++){
                             System.out.println("Escolha linha e a Coluna em numeros:");
                             int x = leitor.nextInt();
                             int y = leitor.nextInt();
 
-                        if (sessaoAtiva.escolhaCadeira(x, y)) {
-                            if(cliente != null){
-                                Bilhete ticket = new Bilhete(cliente, salaSelecionada, numSessao);
-                                System.out.println(ticket.gerarBilhete());
+                            if (sessaoAtiva.escolhaCadeira(x, y)) {
+                                if(cliente != null){
+
+                                    for(int k = 0; k < quantBilhete; k++) {
+                                        ticket[k] = new Bilhete(cliente, salaSelecionada, numSessao, "");
+                                    }
+                                    System.out.println(ticket.gerarBilhete());
                                 }
-                            else{
-                                System.out.println("Sem Cadastro");
+                                else{
+                                    System.out.println("Sem Cadastro");
+                                }
                             }
-                        }
-                        else{
-                            System.out.println("Cadeira ocupada");
-                            i--;
-                        }
+                            else{
+                                System.out.println("Cadeira ocupada");
+                                i--;
+                            }
                         }
                     } else {
                         System.out.println("Sessão invalida");
