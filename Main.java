@@ -87,21 +87,19 @@ public class Main {
                             }
                             
                         }
-                        Scanner leitorCompra = new Scanner(System.in);
                         System.out.println("\nDeseja comprar snack?");
                         Compra compra = new Compra(sessaoAtiva);
                         System.out.println(compra.listarProdutos());
                         int item, qntd;
-                        item = leitorCompra.nextInt();
+                        item = leitor.nextInt();
                         System.out.println("Digite a quantidade: ");
-                        qntd = leitorCompra.nextInt();
+                        qntd = leitor.nextInt();
                         compra.calcularValorSnack(item, qntd);
                         compra.calcularValorTotal(quantBilhete);
                         System.out.println("Valor total da compra: " + compra.getValorTotal());
                         for(int i = 0; i < quantBilhete; i++){
                             System.out.printf("Bilhete %d: " + ticket[i].gerarBilhete() + "\n", i);
                         }
-
 
                     } else {
                         System.out.println("Sessão invalida");
