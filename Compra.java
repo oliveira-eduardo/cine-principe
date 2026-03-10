@@ -22,69 +22,62 @@ public class Compra {
         }
     }
 
-    private Sala sala;      // sessão escolhida pelo usuário
+    private Sessao sessao;      // sessão escolhida pelo usuário
     private String cadeira;     // cadeira que foi comprada
-    private float valor;        // valor da compra
+    private double valor;        // valor da compra
 
-    public Compra(Sala sala, String cadeira, float valor) {
-        this.sala = sala;
+    public Compra(Sessao sessao, String cadeira) {
+        this.sessao = sessao;
         this.cadeira = cadeira;
-        this.valor = valor;
+        valor = 0.0;
     }
 
     public String getCadeira() {
         return cadeira;
     }
 
-    public Sala getSala() {
-        return sala;
+    public Sessao getSessao() {
+        return sessao;
     }
 
-    public void setSala(Sala sala) {
-        this.sala = sala;
+    public void setSessao(Sessao sessao) {
+        this.sessao = sessao;
     }
     public void setCadeira(String cadeira) {
         this.cadeira = cadeira;
     }
 
-    public float getValor() {
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(float valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 
-    public static void escolherSessao() {
-        
-    }
-
-    public static int numero_de_bilhetes(int numBilhetes){
-        return numBilhetes;
-    }
-
     public String listarProdutos() {
-        return Produtos.PIPOCA.toString() + Produtos.CHOCOLATE.toString() + Produtos.REFRIGERANTE.toString() + Produtos.JUJUBA.toString();
-    }
-
-    //esse metodo pode ser melhorado
-    public double escolherProduto(int opcao, int quantidade){
-        switch(opcao) {
-            case 1:
-                return Produtos.PIPOCA.getPreco() * quantidade;
-            case 2:
-                return Produtos.CHOCOLATE.getPreco() * quantidade;
-            case 3:
-                return Produtos.REFRIGERANTE.getPreco() * quantidade;
-            case 4:
-                return Produtos.JUJUBA.getPreco() * quantidade;
-            default:
-                return 0;
+        Produtos[] produtos = Produtos.values();
+        String saida = "";
+        for (int i = 0; i < produtos.length; i++) {
+            saida += Integer.toString(i+1) + produtos[i] + Double.toString(produtos[i].getPreco());
         }
+        return saida;
     }
 
-    public double calcularValor(int numero_de_bilhetes, int indiceDaSessao, double valorSnack){
-        return numero_de_bilhetes * sala.getSessoes()[indiceDaSessao].getFilme().getValor() + valorSnack;
+    public double calcularValorSnack(int opcao, int quantidade) {
+        Produtos[] produtos = Produtos.values();
+        int indice = opcao - 1;
+
+        if (indice >= 0 && indice < produtos.length) {
+            return produtos[indice].getPreco() * quantidade;
+        }
+        
+        return 0.0;
+    }
+
+    public void calcularValorTotal(int numBilhetes, double valorSnacks) {
+        double precoIngresso = sessao.getFilme().getValor();
+        this.valor = (numBilhetes * precoIngresso) + valorSnacks;
     }
 
 }
