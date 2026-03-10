@@ -1,11 +1,25 @@
 import java.util.Scanner;
 
 public class Compra {
-    enum Produtos {
-        PIPOCA,
-        REFRIGERANTE,
-        CHOCOLATE,
-        JUJUBA        
+    private enum Produtos {
+        PIPOCA(30.0),
+        REFRIGERANTE(10.0),
+        CHOCOLATE(8.0),
+        JUJUBA(4.0);
+        
+        private double preco;
+
+        Produtos(double preco) {
+            this.preco = preco;
+        }
+
+        public double getPreco() {
+            return preco;
+        }
+
+        public void setPreco(double preco) {
+            this.preco = preco;   
+        }
     }
 
     private Sala sala;      // sessão escolhida pelo usuário
@@ -41,24 +55,36 @@ public class Compra {
         this.valor = valor;
     }
 
-    public static int escolherSessao() {
-        Scanner leitor = new Scanner(System.in);
-        System.out.println("Escolha a sessão desejada:");
-        int opcao = leitor.nextInt();
-
-        return opcao;
+    public static void escolherSessao() {
+        
     }
+
     public static int numero_de_bilhetes(int numBilhetes){
         return numBilhetes;
     }
-    public static void escolherProduto(){
-        Scanner leitor = new Scanner(System.in);
-        System.out.println("Deseja comprar algum produto? (S/N)");
-        String resposta = leitor.nextLine();
 
+    public String listarProdutos() {
+        return Produtos.PIPOCA.toString() + Produtos.CHOCOLATE.toString() + Produtos.REFRIGERANTE.toString() + Produtos.JUJUBA.toString();
     }
-    public float calcularvalor(int numero_de_bilhetes, int indiceDaSessao){
-        return numero_de_bilhetes * sala.getSessoes()[indiceDaSessao].getFilme().getValor();
+
+    //esse metodo pode ser melhorado
+    public double escolherProduto(int opcao, int quantidade){
+        switch(opcao) {
+            case 1:
+                return Produtos.PIPOCA.getPreco() * quantidade;
+            case 2:
+                return Produtos.CHOCOLATE.getPreco() * quantidade;
+            case 3:
+                return Produtos.REFRIGERANTE.getPreco() * quantidade;
+            case 4:
+                return Produtos.JUJUBA.getPreco() * quantidade;
+            default:
+                return 0;
+        }
+    }
+
+    public double calcularValor(int numero_de_bilhetes, int indiceDaSessao, double valorSnack){
+        return numero_de_bilhetes * sala.getSessoes()[indiceDaSessao].getFilme().getValor() + valorSnack;
     }
 
 }
