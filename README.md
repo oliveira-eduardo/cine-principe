@@ -9,7 +9,7 @@ Integrantes
 
 Sobre o Projeto
 
-O sistema funciona via terminal e permite gerenciar as principais etapas de uma ida ao cinema:
+    O sistema funciona via terminal e permite gerenciar as principais etapas de uma ida ao cinema:
 
     Cadastro: Registro do cliente.
 
