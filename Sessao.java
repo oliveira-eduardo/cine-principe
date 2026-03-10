@@ -51,15 +51,15 @@ public class Sessao {
         cadeirasDisponiveis[x][y] = 0;
         setCadeira(cadeirasDisponiveis);
     }
-    public String escolhaCadeira(int x,  int y){ //opção cadeira de acordo bilhete
+    public boolean  escolhaCadeira(int x,  int y){ //opção cadeira de acordo bilhete
         int [][]cadeirasDisponiveis = getCadeira();
         if(cadeirasDisponiveis[x][y] == 0){
             cadeirasDisponiveis[x][y] = 1;
             setCadeira(cadeirasDisponiveis);
-            return "Cadeira escolhida com sucesso";
+            return true;
         }
         else{ 
-            return "Cadeira ocupada!";
+            return false;
         }
     }
     public String buscarCadeirajuntas(int numeroDeBilhetes){

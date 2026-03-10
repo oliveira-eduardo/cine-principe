@@ -2,29 +2,106 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Sala Filme3d = new Sala();
-        Sala imaxSala = new Sala();
-        Sala tradicionSala = new Sala();
-        //Usuario usuario = Cadastro();
-       /*  Filme filme = new Filme("avengers","b","c",20.0f);
-        Sessao cadeira = new Sessao(filme, "20:40");
-        cadeira.cadeirasDisponiveis();
         Scanner leitor = new Scanner(System.in);
-        int x, y;
-        x = leitor.nextInt();
-        y = leitor.nextInt();
-        cadeira.escolhaCadeira(x, y);
-        cadeira.cadeirasDisponiveis();
-        Sala imax = new Sala();
-        System.out.println(Filme3d);
-        System.out.println(imax); */
-        System.out.println(Filme3d.getSessoes[0]().buscarCadeirajuntas(5));
-     
+        Sala filme3d = new Sala();
+        Sala imaxSala = new Sala();
+        Sala tradicionalSala = new Sala();
+        
+        filme3d.setNomeDaSala("Sala 3D");
+        imaxSala.setNomeDaSala("Sala Imax");
+        tradicionalSala.setNomeDaSala("Sala tradicional");
+
+        Usuario cliente = null;
+        int opcao = -1;
+
+        do {
+            menu();
+            opcao = leitor.nextInt();
+
+            switch(opcao) {
+                case 1:
+                    cliente = Cadastro(leitor);
+                    break;
+
+                case 2:
+                    System.out.println("Escolha a sala:");
+                    System.out.println("1 " + imaxSala.getNomeDaSala());
+                    System.out.println("2 " + tradicionalSala.getNomeDaSala());
+                    System.out.println("3 " + filme3d.getNomeDaSala());
+                    
+                    int escolhaSala = leitor.nextInt();
+                    Sala salaSelecionada = null;
+
+                    if(escolhaSala == 1) salaSelecionada = imaxSala;
+                    else if(escolhaSala == 2) salaSelecionada = tradicionalSala;
+                    else if(escolhaSala == 3) salaSelecionada = filme3d;
+                    else {
+                        System.out.println("Escolha uma opção valida");
+                        break;
+                    }
+
+                    System.out.println("Sessões disponiveis " + salaSelecionada.getNomeDaSala() + ":");
+                    System.out.println(salaSelecionada.mostrarSala());
 
 
+                    System.out.println("Digite a sessão:");
+                    int numSessao = leitor.nextInt() - 1;
+
+                    System.out.print(" Valor do bilhete: " + salaSelecionada.getSessoes()[numSessao].getFilme().getValor() + "Digite a quantidade de bilhetes: ");
+                    int quantBilhete = leitor.nextInt();
+
+                    if (numSessao >= 0 && numSessao < 7 && salaSelecionada.getSessoes()[numSessao] != null && quantBilhete > 0) {
+                        Sessao sessaoAtiva = salaSelecionada.getSessoes()[numSessao];
+
+                        if(quantBilhete > 1){
+                            String sugestao = sessaoAtiva.buscarCadeirajuntas(quantBilhete);
+                            System.out.println("Sugestao de cadeira: " + sugestao);
+                            System.out.println(" Cadeiras para: " + sessaoAtiva.getFilme().getNome());
+                            sessaoAtiva.cadeirasDisponiveis();
+
+                        }
+                        else{
+                            System.out.println(" Cadeiras para: " + sessaoAtiva.getFilme().getNome());
+                            sessaoAtiva.cadeirasDisponiveis();
+
+                        }
+                        for(int i =0; i < quantBilhete; i++){
+                            System.out.println("Escolha linha e a Coluna em numeros:");
+                            int x = leitor.nextInt();
+                            int y = leitor.nextInt();
+
+                        if (sessaoAtiva.escolhaCadeira(x, y)) {
+                            if(cliente != null){
+                                Bilhete ticket = new Bilhete(cliente, salaSelecionada, numSessao);
+                                System.out.println(ticket.gerarBilhete());
+                                }
+                            else{
+                                System.out.println("Sem Cadastro");
+                            }
+                        }
+                        else{
+                            System.out.println("Cadeira ocupada");
+                            i--;
+                        }
+                        }
+                    } else {
+                        System.out.println("Sessão invalida");
+                    }
+                    break;
+                         
+                case 0:
+                    break;
+
+                default:
+                    System.out.println("Opção invalida");
+            }
+        } while (opcao != 0);
+
+        leitor.close();
     }
 
-    public static Usuario Cadastro(){
+
+    public static Usuario Cadastro(Scanner entrada){
         String user;
         int idade;
         String cpf;
@@ -34,9 +111,8 @@ public class Main {
         String numero_do_cartao;
         String nome_do_cartao;
         String codigo_verificador_do_cartao;
-
-        Scanner entrada = new Scanner(System.in);
-
+        
+        entrada.nextLine();
         do{
             System.out.println("Digite seu nome de usuário:");
             user = entrada.nextLine();
@@ -72,7 +148,6 @@ public class Main {
         System.out.println("Digite o código verificador do cartão:");
         codigo_verificador_do_cartao = entrada.nextLine();
         
-        entrada.close();
         Usuario usuario = new Usuario(user, cpf, senha, idade, sexo, email, nome_do_cartao, numero_do_cartao, codigo_verificador_do_cartao);
         return usuario;
     }
@@ -90,9 +165,9 @@ public class Main {
     }
     public static void menu(){
 
-        System.out.print("1 - Cadastro");
-        System.out.print("2 - Comprar billhete");
-        System.out.print("0 - Sair");
+        System.out.print("1 - Cadastro\n");
+        System.out.print("2 - Comprar billhete\n");
+        System.out.print("0 - Sair\n");
     }
     
 }
