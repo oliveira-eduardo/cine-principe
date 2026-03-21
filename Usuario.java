@@ -96,8 +96,7 @@ public class Usuario {
     // validarcpf() retorna boolean
     // exibirPerfil() retorna string com informações importantes
  
-    @Override
-    public String toString(){
+    public String mostrarUsuario(){
         return "nome: " + getUser() + " cpf: " + getCpf() + " senha: " + getSenha() + " idade: " + getIdade()
         + " sexo: " + getSexo() + " email: " + getEmail() + " nome no cartão: " + getNome_do_cartao() + " numero no cartao: " + getNumero_do_cartao()
         + " codigo do cartao: " + getCodigo_verificador_do_cartao();

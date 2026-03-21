@@ -1,5 +1,3 @@
-
-
 public class Sessao {
     private int [][] cadeira = new int[10][15];
     private String horario;
@@ -50,6 +48,17 @@ public class Sessao {
         cadeirasDisponiveis[x][y] = 0;
         setCadeira(cadeirasDisponiveis);
     }
+
+    public boolean traducaoCadeira(String assento){
+        String cadeira = assento.trim().toUpperCase();
+        int linha, coluna;
+
+        linha = cadeira.charAt(0) - 'A';
+        coluna = cadeira.charAt(1) - '0';
+
+        return escolhaCadeira(linha, coluna);
+    }
+
     public boolean  escolhaCadeira(int x,  int y){ //opção cadeira de acordo bilhete
         int [][]cadeirasDisponiveis = getCadeira();
         if(cadeirasDisponiveis[x][y] == 0){
@@ -61,6 +70,7 @@ public class Sessao {
             return false;
         }
     }
+
     public String buscarCadeirajuntas(int numeroDeBilhetes){
         int [][]cadeirasDisponiveis = getCadeira();
         String sugestao = "";
@@ -90,8 +100,8 @@ public class Sessao {
         }
         return sugestao;
     }
-    @Override
-    public String toString() {
+
+    public String mostrarSessao() {
         if(this.filme == null){
             return ""; 
         }
