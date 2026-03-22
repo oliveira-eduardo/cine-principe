@@ -9,13 +9,22 @@ public class Filme {
     private double media = 0.0;
 
 
-    public Filme(String nome, String duracao, String sinopse, float valor) {
+    public Filme(String nome, String duracao, String sinopse, float valor, double nota, int quantidade_criticos, double somaDasNotas, double media) {
         this.nome = nome;
         this.duracao = duracao;
         this.sinopse = sinopse;
         this.valor = valor;
+        this.nota = nota;
+        this.quantidade_criticos = quantidade_criticos;
+        this.somaDasNotas = somaDasNotas;
+        this.media = media;
     }
     
+    private Critica[] criticas = new Critica[100];
+    private int contadorCriticas = 0;
+
+    
+
     public String getNome() {
         return nome;
     }
@@ -63,7 +72,7 @@ public class Filme {
     public void setQuantidade_criticos(int quantidade_criticos) {
         this.quantidade_criticos = quantidade_criticos;
     }
-    
+
     public double getSomaDasNotas() {
         return somaDasNotas;
     }
@@ -80,10 +89,22 @@ public class Filme {
         this.media = media;
     }
 
-    
+    public Critica[] getCriticas() {
+        return criticas;
+    }
 
-    private Critica[] criticas = new Critica;
-    private int contadorCriticas = 0;
+    public void setCriticas(Critica[] criticas) {
+        this.criticas = criticas;
+    }
+
+    public int getContadorCriticas() {
+        return contadorCriticas;
+    }
+
+    public void setContadorCriticas(int contadorCriticas) {
+        this.contadorCriticas = contadorCriticas;
+    }
+
 
     public String mostrarFilme(){
         return  "Filme: " + this.nome + " Duração: " + this.duracao + " Genero: " + this.sinopse + " Valor: " + this.valor + "\n";
