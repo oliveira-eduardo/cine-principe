@@ -15,6 +15,34 @@ public class Critico extends Usuario{
         return this.origem;
     }
 
+    public void atribuirNota(double nota, Filme filme) {
+        if (nota >= 0 && nota <= 10) {
+            
+            int novaQtd = filme.getQuantidade_criticos() + 1;
+            filme.setQuantidade_criticos(novaQtd);
+            
+            double novaSoma = filme.getSomaDasNotas() + nota;
+            filme.setSomaDasNotas(novaSoma);
+            
+            double novaMedia = novaSoma / novaQtd;
+            filme.setMedia(novaMedia);
+        }
+    }
+
+    public void atribuirCritica(String textoCritica, Filme filme) {
+        
+        Critica novaCritica = new Critica();
+        novaCritica.setComentario(textoCritica);
+
+        int posicao = filme.getContadorCriticas();
+        if (posicao < 100) {
+
+            Critica[] vetorDoFilme = filme.getCriticas();
+            vetorDoFilme[posicao] = novaCritica;
+            
+            filme.setContadorCriticas(posicao + 1);
+        }
+    }
 
     //fazer um metodo exclusivo comprar bilhete;
 }

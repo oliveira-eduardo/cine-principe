@@ -32,4 +32,7 @@ public class Critica {
         this.origem=origem;
         this.comentario=comentario;
     }
+
+    public Critica() {
+    }
 }
