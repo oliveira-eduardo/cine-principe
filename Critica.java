@@ -31,7 +31,5 @@ public class Critica {
         this.nome_critica=nome_critica;
         this.origem=origem;
         this.comentario=comentario;
-
-
     }
 }
