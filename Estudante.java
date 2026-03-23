@@ -5,7 +5,6 @@ public class Estudante extends Usuario{
 
     //implementar depois da reorganização do código
     public Compra realizarCompra(Sessao sessao) {
-        Compra compra = new Compra(sessao);
-        return compra;
+         return new Compra(sessao);
     }
 }
