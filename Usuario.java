@@ -93,8 +93,6 @@ public class Usuario {
         return codigo_verificador_do_cartao;
     }
 
-    // validarcpf() retorna boolean
-    // exibirPerfil() retorna string com informações importantes
  
     public String mostrarUsuario(){
         return "nome: " + getUser() + " cpf: " + getCpf() + " senha: " + getSenha() + " idade: " + getIdade()
