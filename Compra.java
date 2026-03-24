@@ -35,9 +35,36 @@ public class Compra {
         }
     }
 
+    public void calcularValorSnack(int opcao, int quantidade, CupomPromocional CupomPromocional) {
+        Produtos[] produtos = Produtos.values();
+        int indice = opcao - 1;
+
+        if (indice >= 0 && indice < produtos.length) {
+            double valorDesconto = CupomPromocional.getDesconto();
+
+            valorSnacks = produtos[indice].getPreco() * quantidade;
+
+            valorSnacks = valorSnacks * (1 - valorDesconto);
+        }
+        
+        else{
+            valorSnacks = 0;
+        }
+    }
+
     public void calcularValorTotal(int numBilhetes) {
         double precoIngresso = sessao.getFilme().getValor();
         this.valorTotal = (numBilhetes * precoIngresso) + valorSnacks;
+    }
+
+    public void calcularValorTotal(int numBilhetes, CupomPromocional CupomPromocional) {
+        double precoIngresso = sessao.getFilme().getValor();
+        double totalIngressos = numBilhetes * precoIngresso;
+
+        double valorDesconto = CupomPromocional.getDesconto();
+        totalIngressos = totalIngressos * (1 - valorDesconto);
+
+        this.valorTotal = totalIngressos + valorSnacks;
     }
 
 }
