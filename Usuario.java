@@ -93,7 +93,13 @@ public class Usuario {
         return codigo_verificador_do_cartao;
     }
 
- 
+    public double comprarBilhete(int numBilhetes, Filme filme, Salas salas){
+        return numBilhetes * (filme.getValor() * salas.getMultiplicadorValor());
+    }
+     public double comprarBilhete(int numBilhetes, Filme filme, Salas salas, CupomPromocional cupom){
+        return numBilhetes * (filme.getValor() * salas.getMultiplicadorValor()) * cupom.getDesconto();
+    }
+
     public String mostrarUsuario(){
         return "nome: " + getUser() + " cpf: " + getCpf() + " senha: " + getSenha() + " idade: " + getIdade()
         + " sexo: " + getSexo() + " email: " + getEmail() + " nome no cartão: " + getNome_do_cartao() + " numero no cartao: " + getNumero_do_cartao()

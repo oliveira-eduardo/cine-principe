@@ -4,7 +4,12 @@ public class Estudante extends Usuario{
     }
 
     //implementar depois da reorganização do código
-    public Compra realizarCompra(Sessao sessao) {
-         return new Compra(sessao);
+    @Override
+    public double comprarBilhete(int numBilhetes, Filme filme, Salas salas){
+        return numBilhetes * ( (filme.getValor()/2) * salas.getMultiplicadorValor());
+    }
+    @Override
+    public double comprarBilhete(int numBilhetes, Filme filme, Salas salas, CupomPromocional cupom){
+        return numBilhetes * ((filme.getValor()/2) * salas.getMultiplicadorValor()) * cupom.getDesconto();
     }
 }

@@ -59,7 +59,8 @@ public class Sessao {
         return escolhaCadeira(linha, coluna);
     }
 
-    public boolean  escolhaCadeira(int x,  int y){ //opção cadeira de acordo bilhete
+
+    public boolean escolhaCadeira(int x,  int y){ //opção cadeira de acordo bilhete
         int [][]cadeirasDisponiveis = getCadeira();
         if(cadeirasDisponiveis[x][y] == 0){
             cadeirasDisponiveis[x][y] = 1;

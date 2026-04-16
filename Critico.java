@@ -45,4 +45,11 @@ public class Critico extends Usuario{
     }
 
     //fazer um metodo exclusivo comprar bilhete;
+    public double comprarBilhete(int numBilhetes, Filme filme, Salas salas){
+        return numBilhetes * (filme.getValor() * salas.getMultiplicadorValor()) * 0;
+    }
+
+    public double comprarBilhete(int numBilhetes, Filme filme, Salas salas, CupomPromocional cupom){
+        return numBilhetes * (filme.getValor() * salas.getMultiplicadorValor()) * cupom.getDesconto() * 0;
+    }
 }

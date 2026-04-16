@@ -4,24 +4,20 @@ public class Filme {
     private String sinopse;
     private Float valor;
     private Double nota;
-    private int quantidade_criticos;
+    private int quantidade_criticos = 0;
     private double somaDasNotas = 0.0;
     private double media = 0.0;
+    private Critica[] criticas = new Critica[100];
+    private int contadorCriticas = 0;
 
-
-    public Filme(String nome, String duracao, String sinopse, float valor, double nota, int quantidade_criticos, double somaDasNotas, double media) {
+    // idade minima no futuro
+    public Filme(String nome, String duracao, String sinopse, float valor) {
         this.nome = nome;
         this.duracao = duracao;
         this.sinopse = sinopse;
         this.valor = valor;
-        this.nota = nota;
-        this.quantidade_criticos = quantidade_criticos;
-        this.somaDasNotas = somaDasNotas;
-        this.media = media;
     }
     
-    private Critica[] criticas = new Critica[100];
-    private int contadorCriticas = 0;
 
     
 
