@@ -1,3 +1,4 @@
+package service;
 public class Critica {
     private String  nome_critica;
     private String origem;

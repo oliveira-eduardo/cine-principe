@@ -1,3 +1,6 @@
+package service;
+import model.Produtos;
+import model.CupomPromocional;
 public class Compra {
 
     private Sessao sessao;      // sessão escolhida pelo usuário

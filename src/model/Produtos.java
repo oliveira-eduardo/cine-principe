@@ -1,3 +1,4 @@
+package model;
 public enum Produtos {
         PIPOCA(30.0),
         REFRIGERANTE(10.0),

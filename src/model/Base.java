@@ -1,3 +1,4 @@
+package model;
 public abstract class Base{
     private String nome;
     private int idade;

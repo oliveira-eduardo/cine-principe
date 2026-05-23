@@ -1,3 +1,6 @@
+package model;
+import repository.GerenciaFilme;
+
 public class Administrador extends Base implements GerenciaFilme {
     private double salario;
     private int ID;

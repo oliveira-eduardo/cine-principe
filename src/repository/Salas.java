@@ -1,3 +1,4 @@
+package repository;
 public enum Salas{
 
     SALACOMUM("Sala comum", 1.0),

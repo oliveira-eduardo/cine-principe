@@ -1,3 +1,7 @@
+package model;
+import repository.Salas;
+import service.Critica;
+
 public class Critico extends Usuario{
 
     private String origem;
@@ -48,7 +52,7 @@ public class Critico extends Usuario{
     public double comprarBilhete(int numBilhetes, Filme filme, Salas salas){
         return numBilhetes * (filme.getValor() * salas.getMultiplicadorValor()) * 0;
     }
-
+    
     public double comprarBilhete(int numBilhetes, Filme filme, Salas salas, CupomPromocional cupom){
         return numBilhetes * (filme.getValor() * salas.getMultiplicadorValor()) * cupom.getDesconto() * 0;
     }

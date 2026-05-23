@@ -1,4 +1,6 @@
+package model;
 import java.util.Random;
+import service.Sessao;
 public class Sala {
     private String nomeDaSala;
     private Sessao[] sessoes = new Sessao[7];

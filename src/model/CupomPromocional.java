@@ -1,3 +1,4 @@
+package model;
 public enum CupomPromocional {
     //mudar esses nomes
     FIDELIDADE(0.5),

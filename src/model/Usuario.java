@@ -1,3 +1,5 @@
+package model;
+import repository.Salas;
 public class Usuario {
     private String user;
     private String cpf;

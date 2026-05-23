@@ -1,3 +1,6 @@
+package model;
+import service.Critica;
+
 public class Filme {
     private String nome;
     private String duracao;

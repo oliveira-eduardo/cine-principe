@@ -1,3 +1,6 @@
+package model;
+import service.Sessao;
+
 public class Bilhete {
     private Usuario usuario;
     private Sala sala;
