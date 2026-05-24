@@ -2,6 +2,7 @@ package model;
 import service.Critica;
 
 public class Filme {
+    private int id;
     private String nome;
     private String duracao;
     private String sinopse;
@@ -13,7 +14,14 @@ public class Filme {
     private Critica[] criticas = new Critica[100];
     private int contadorCriticas = 0;
 
-    // idade minima no futuro
+    // com id pra conseguir 
+    public Filme(int id, String nome, String duracao, String sinopse, float valor) {
+        this.id = id;
+        this.nome = nome;
+        this.duracao = duracao;
+        this.sinopse = sinopse;
+        this.valor = valor;
+    }
     public Filme(String nome, String duracao, String sinopse, float valor) {
         this.nome = nome;
         this.duracao = duracao;
@@ -103,9 +111,16 @@ public class Filme {
     public void setContadorCriticas(int contadorCriticas) {
         this.contadorCriticas = contadorCriticas;
     }
+    
+    public int getId() {
+        return id;
+    }
 
-
+    public void setId(int id) {
+        this.id = id;
+    }
     public String mostrarFilme(){
         return  "Filme: " + this.nome + " Duração: " + this.duracao + " Genero: " + this.sinopse + " Valor: " + this.valor + "\n";
     }
 }
+
