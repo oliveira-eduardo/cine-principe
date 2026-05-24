@@ -28,6 +28,12 @@
             <version>5.10.0</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.7.1</version>
+        </dependency>
     </dependencies>
 
     <build>
