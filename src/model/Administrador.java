@@ -28,12 +28,12 @@ public class Administrador extends Base implements GerenciaFilme {
     }
 
     @Override
-    public void adicionarUsuario(Base usuario){
+    public void adicionarUsuario(Usuario usuario){
         System.out.println("Usuário adicionado ao sistema.");
     }
 
     @Override
-    public void alterarUsuario(Base usuario){
+    public void alterarUsuario(Usuario usuario){
         System.out.println("Usuário alterado no sistema.");
     }
 

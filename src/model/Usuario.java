@@ -1,6 +1,7 @@
 package model;
 import repository.Salas;
 public class Usuario {
+    private int id;
     private String user;
     private String cpf;
     private String senha;
@@ -21,6 +22,14 @@ public class Usuario {
         this.nome_do_cartao = nome_do_cartao;
         this.numero_do_cartao = numero_do_cartao;
         this.codigo_verificador_do_cartao = codigo_verificador_do_cartao;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setUser(String user) {
