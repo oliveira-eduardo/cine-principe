@@ -32,7 +32,7 @@ public abstract class Base{
         this.email = email;
     }
 
-    abstract public void adicionarUsuario(Base usuario);
-    abstract public void alterarUsuario(Base usuario);
+    abstract public void adicionarUsuario(Usuario usuario);
+    abstract public void alterarUsuario(Usuario usuario);
     
 }
