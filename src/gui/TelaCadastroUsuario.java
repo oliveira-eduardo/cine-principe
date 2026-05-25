@@ -1,5 +1,6 @@
 package gui;
 
+import data.UsuariosData;
 import model.Usuario;
 import javax.swing.*;
 import java.awt.*;
@@ -59,6 +60,7 @@ public class TelaCadastroUsuario extends JFrame {
                 }
 
                 Usuario novoUsuario = new Usuario(user, cpf, senha, idade, sexo, email, nomeCartao, numCartao, cvv);
+                UsuariosData.inserir(novoUsuario);
 
                 JOptionPane.showMessageDialog(this, 
                     "Cadastro realizado com sucesso!\n\nDados:\n" + novoUsuario.mostrarUsuario(), 

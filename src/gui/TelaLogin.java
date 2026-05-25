@@ -1,6 +1,10 @@
 package gui;
 
+import model.Usuario;
 import javax.swing.*;
+
+import data.UsuariosData;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
@@ -9,7 +13,7 @@ public class TelaLogin extends JFrame {
     public TelaLogin() {
         setTitle("Acesso ao Sistema");
         setSize(350, 250);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null); // Centraliza na tela
 
         inicializarComponentes();
@@ -45,6 +49,10 @@ public class TelaLogin extends JFrame {
             // ta faltando add o banco de dados aq
             try {
                 if (login.equals("admin")) {
+                    if(!senha.equals("admin")) {
+                        throw new Exception("senha incorreta");
+                    }
+
                     JOptionPane.showMessageDialog(this, "Bem-vindo, Administrador!");
                     //TelaSistema telaSistema = new TelaSistema();
                     //telaSistema.setVisible(true);
@@ -56,7 +64,15 @@ public class TelaLogin extends JFrame {
                     this.dispose();
                     
                 } else {
-                    JOptionPane.showMessageDialog(this, "Bem-vindo, Usuário!");
+                    Usuario usuario = UsuariosData.pegar(login);
+                    if(usuario == null) {
+                        throw new Exception("Login nao reconhecido");
+                    }
+                    if(!senha.equals(usuario.getSenha())) {
+                        throw new Exception("Senha incorreta");
+                    }
+
+                    JOptionPane.showMessageDialog(this, "Bem-vindo, " + usuario.getUser() + "!");
                     //TelaPrincipal telaUsuario = new TelaPrincipal();
                     //telaUsuario.setVisible(true);
                     this.dispose(); 
