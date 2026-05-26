@@ -2,10 +2,14 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+
 import model.Base;
 import model.Administrador;
 import model.Usuario;
+import repository.GerenciaFilme;
+import model.Filme;
 import data.UsuariosData;
+import data.FilmeData;
 
 public class TelaSistema extends JFrame {
 
@@ -37,12 +41,14 @@ public class TelaSistema extends JFrame {
         JButton btnAddFilme = new JButton("Adicionar Filme");
         JButton btnAltFilme = new JButton("Alterar Filme");
         JButton btnExcluirUsuario = new JButton("Excluir Usuário");
+        JButton btnExcluirFilme = new JButton("Excluir Filme");
 
         btnAddUsuario.addActionListener(e -> {
             btnAddUsuario.setEnabled(false);
             btnAltUsuario.setEnabled(false);
             btnAddFilme.setEnabled(false);
             btnAltFilme.setEnabled(false);
+            btnExcluirFilme.setEnabled(false);
             if (usuarioLogado instanceof Administrador) {
                 btnExcluirUsuario.setEnabled(false);
             }
@@ -55,6 +61,7 @@ public class TelaSistema extends JFrame {
                     btnAltUsuario.setEnabled(true);
                     btnAddFilme.setEnabled(true);
                     btnAltFilme.setEnabled(true);
+                    btnExcluirFilme.setEnabled(true);
                     if (usuarioLogado instanceof Administrador) {
                         btnExcluirUsuario.setEnabled(true);
                     }
@@ -81,13 +88,72 @@ public class TelaSistema extends JFrame {
             }
         });
 
-        btnAddFilme.addActionListener(e -> JOptionPane.showMessageDialog(this, "Abrindo tela Adicionar Filme..."));
-        btnAltFilme.addActionListener(e -> JOptionPane.showMessageDialog(this, "Abrindo tela Alterar Filme..."));
+        btnAddFilme.addActionListener(e -> {
+            btnAddUsuario.setEnabled(false);
+            btnAltUsuario.setEnabled(false);
+            btnAddFilme.setEnabled(false);
+            btnAltFilme.setEnabled(false);
+            btnExcluirFilme.setEnabled(false);
+            if (usuarioLogado instanceof Administrador) {
+                btnExcluirUsuario.setEnabled(false);
+            }
+
+            TelaCadastroFilme telaCadastro = new TelaCadastroFilme(usuarioLogado);
+            
+            telaCadastro.addWindowListener(new java.awt.event.WindowAdapter() { 
+                public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                    btnAddUsuario.setEnabled(true);
+                    btnAltUsuario.setEnabled(true);
+                    btnAddFilme.setEnabled(true);
+                    btnAltFilme.setEnabled(true);
+                    btnExcluirFilme.setEnabled(true);
+                    if (usuarioLogado instanceof Administrador) {
+                        btnExcluirUsuario.setEnabled(true);
+                    }
+                }
+            });
+
+            telaCadastro.setVisible(true);
+        });
+
+        btnAltFilme.addActionListener(e -> {
+            String filmeDigitado = JOptionPane.showInputDialog(this,
+                    "Digite o nome do filme que deseja ALTERAR:");
+
+            if (filmeDigitado != null && !filmeDigitado.trim().isEmpty()) {
+
+                Filme filmeEncontrado = FilmeData.pegar(filmeDigitado);
+
+                if (filmeEncontrado != null) {
+                    TelaAlterarFilme telaAlterar = new TelaAlterarFilme(usuarioLogado, filmeEncontrado);
+                    telaAlterar.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Filme não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        btnExcluirFilme.addActionListener(e -> {
+            String filmeDigitado = JOptionPane.showInputDialog(this, "Digite o nome do filme a EXCLUIR:");
+                if (filmeDigitado != null && !filmeDigitado.trim().isEmpty()) {
+                    Filme filmeEncontrado = FilmeData.pegar(filmeDigitado);
+                    int confirmacao = JOptionPane.showConfirmDialog(this, 
+                            "Deseja excluir '" + filmeDigitado + "'?", 
+                            "Confirmar", JOptionPane.YES_NO_OPTION);
+                            
+                    if (confirmacao == JOptionPane.YES_OPTION) {
+                        GerenciaFilme gerente = (GerenciaFilme) usuarioLogado;
+                        gerente.excluirFilme(filmeEncontrado);
+                        JOptionPane.showMessageDialog(this, "Excluído com sucesso!");
+                    }
+                }
+        });
 
         painelBotoes.add(btnAddUsuario);
         painelBotoes.add(btnAltUsuario);
         painelBotoes.add(btnAddFilme);
         painelBotoes.add(btnAltFilme);
+        painelBotoes.add(btnExcluirFilme);
 
         if (usuarioLogado instanceof Administrador) {
             btnExcluirUsuario.addActionListener(e -> {
@@ -106,7 +172,6 @@ public class TelaSistema extends JFrame {
             });
 
             painelBotoes.add(btnExcluirUsuario);
-            painelBotoes.add(new JLabel(""));
         }
 
         painelPrincipal.add(painelBotoes, BorderLayout.CENTER);

@@ -8,7 +8,6 @@ import javax.swing.*;
 import data.*;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class TelaLogin extends JFrame {
 
