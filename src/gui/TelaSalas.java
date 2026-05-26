@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 
@@ -42,12 +43,33 @@ public class TelaSalas extends JFrame {
         JPanel janela = new JPanel(new BorderLayout(5, 5));
         janela.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 20));
 
+        JPanel parteSuperior = new JPanel(new BorderLayout());
+        parteSuperior.setOpaque(false);
+        
+
         //Titulo que aparece de forma centralizada na tela
         JLabel titulo = new JLabel("Selecione uma sala", JLabel.CENTER);
         titulo.setFont(new Font("Arial", Font.BOLD, 16));
-        //Adicionao o titulo na janela na parte de cima
-        janela.add(titulo, BorderLayout.NORTH);
-        add(janela);
+        
+        
+
+        JPanel painelLogout = new JPanel(new FlowLayout(FlowLayout.LEFT, 0,0));
+        painelLogout.setOpaque(false);
+
+        JButton Logout = new JButton("Deslogar da Conta");
+        Logout.setFont(new Font("Arial",Font.PLAIN, 12));
+
+        Logout.addActionListener(e -> {
+            TelaPrincipal telaPrincipal = new TelaPrincipal();
+            telaPrincipal.setVisible(true);
+            this.dispose();
+        });
+        painelLogout.add(Logout);
+
+        parteSuperior.add(painelLogout, BorderLayout.WEST);
+        parteSuperior.add(titulo, BorderLayout.CENTER);
+
+        janela.add(parteSuperior, BorderLayout.NORTH);   
 
         //Cria uma painel para colocas as salas
         JPanel salasGrade = new JPanel(new GridLayout(0, 3, 15, 15));
@@ -62,12 +84,11 @@ public class TelaSalas extends JFrame {
                 botaoSala.setPreferredSize(new java.awt.Dimension(120, 60));
                 botaoSala.addActionListener(e ->{
                     // se clicar no botao sala vai para area das sessoe que mostra os filmes
-                    // salva no bilhete o index da sessao e a sala
+                    // salva no bilhete o index da sala
                     bilheteSala.setSala(salasCine[index]);
-                    bilheteSala.setIndiceDaSessao(index);
                     Sessao [] session = salasCine[index].getSessoes();
                     //chama a funcao para mostrar os filmes
-                    TelaFilmes mostrarFilme = new TelaFilmes(session, bilheteSala);
+                    TelaFilmes mostrarFilme = new TelaFilmes(session, bilheteSala, salasCine);
                     // deixa visivel a tela para mostrar sessao
                     mostrarFilme.setVisible(true);
                     //fecha a tela de salas
@@ -77,6 +98,7 @@ public class TelaSalas extends JFrame {
                 salasGrade.add(botaoSala);
             }
         }
+        
         //aqui adiciona tudo na janela de Sala, cada botão criado
         janela.add(salasGrade, BorderLayout.CENTER);
         add(janela);
