@@ -1,31 +1,50 @@
 package service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import model.Usuario;
+import model.Bilhete;
 import model.Produtos;
-import model.CupomPromocional;
+
 public class Compra {
 
-    private Sessao sessao;      // sessão escolhida pelo usuário
-    private double valorTotal = 0.0;        // valor da compra
-    private double valorSnacks = 0.0;
+    private Usuario usuario;
+    private List<Bilhete> bilhetes;
+    private List<Produtos> produtos;
 
-    public Compra(Sessao sessao) {
-        this.sessao = sessao;
+    public Compra(Usuario usuario) {
+        this.usuario = usuario;
+        this.bilhetes = new ArrayList<>();
+        this.produtos = new ArrayList<>();
     }
 
-    public Sessao getSessao() {
-        return sessao;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setSessao(Sessao sessao) {
-        this.sessao = sessao;
-    }
-    public double getValorTotal() {
-        return valorTotal;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public void setValor(double valorTotal) {
-        this.valorTotal = valorTotal;
+    public List<Bilhete> getBilhetes() {
+        return bilhetes;
     }
 
+    public List<Produtos> getProdutos() {
+        return produtos;
+    }
+
+    public void adicionarBilhete(Bilhete bilhete) {
+        bilhetes.add(bilhete);
+    }
+
+    public void adicionarProduto(Produtos produto) {
+        produtos.add(produto);
+    }
+
+
+    /* 
     public void calcularValorSnack(int opcao, int quantidade) {
         Produtos[] produtos = Produtos.values();
         int indice = opcao - 1;
@@ -69,5 +88,7 @@ public class Compra {
 
         this.valorTotal = totalIngressos + valorSnacks;
     }
+
+    */
 
 }
