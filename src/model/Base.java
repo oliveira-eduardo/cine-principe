@@ -3,9 +3,10 @@ public abstract class Base{
     private String nome;
     private int idade;
     private String email;
+    private String senha;
 
-    public Base(String nome, int idade, String email){
-        this.nome = nome; this.idade = idade; this.email = email;
+    public Base(String nome, int idade, String email, String senha){
+        this.nome = nome; this.idade = idade; this.email = email; this.senha = senha;
     }
 
     public String getNome() {
@@ -30,6 +31,14 @@ public abstract class Base{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     abstract public void adicionarUsuario(Usuario usuario);

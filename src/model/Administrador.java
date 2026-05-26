@@ -1,12 +1,14 @@
 package model;
+
+import data.*;
 import repository.GerenciaFilme;
 
 public class Administrador extends Base implements GerenciaFilme {
     private double salario;
     private int ID;
 
-    public Administrador(String nome, int idade, String email, double salario, int ID){
-        super(nome, idade, email);
+    public Administrador(String nome, int idade, String email, String senha, double salario, int ID){
+        super(nome, idade, email, senha);
         this.salario = salario;
         this.ID = ID;
     }
@@ -27,31 +29,27 @@ public class Administrador extends Base implements GerenciaFilme {
         this.ID = id;
     }
 
-    @Override
     public void adicionarUsuario(Usuario usuario){
-        System.out.println("Usuário adicionado ao sistema.");
+        UsuariosData.inserir(usuario);
     }
 
-    @Override
     public void alterarUsuario(Usuario usuario){
-        System.out.println("Usuário alterado no sistema.");
+        UsuariosData.alterar(usuario);
     }
 
-    public void excluirUsuario(){
-        System.out.println("Usuário excluído do sistema.");
+    public void excluirUsuario(String user){
+        UsuariosData.apagar(user);
     }
 
-    @Override
     public void incluirFilme(Filme filme){
-        System.out.println("Filme incluído no catálogo.");
+        FilmeData.inserir(filme);
     }
-    @Override
+    
     public void excluirFilme(Filme filme){
-        System.out.println("Filme excluído do catálogo.");
+        FilmeData.apagar(filme.getId());
     }
 
-    @Override
     public void alterarFilme(Filme filme){
-        System.out.println("Filme alterado.");
+        FilmeData.alterar(filme);
     }
 }

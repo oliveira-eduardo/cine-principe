@@ -1,9 +1,11 @@
 package gui;
 
+import model.Administrador;
+import model.Funcionario;
 import model.Usuario;
 import javax.swing.*;
 
-import data.UsuariosData;
+import data.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -46,21 +48,31 @@ public class TelaLogin extends JFrame {
                 JOptionPane.showMessageDialog(this, "Preencha todos os campos.", "Aviso", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            // ta faltando add o banco de dados aq
+            
             try {
-                if (login.equals("admin")) {
-                    if(!senha.equals("admin")) {
-                        throw new Exception("senha incorreta");
+                if (AdministradoresData.pegar(login) != null) {
+                    //melhorar essa parte, tá fazendo duas consultas ao banco de dados
+                    Administrador adm = AdministradoresData.pegar(login);
+                    
+                    if(!senha.equals(adm.getSenha())) {
+                        throw new Exception("Senha incorreta");
                     }
 
-                    JOptionPane.showMessageDialog(this, "Bem-vindo, Administrador!");
-                    //TelaSistema telaSistema = new TelaSistema();
-                    //telaSistema.setVisible(true);
+                    JOptionPane.showMessageDialog(this, "Bem-vindo, " + adm.getNome() + "!");
+                    TelaSistema telaSistema = new TelaSistema(adm);
+                    telaSistema.setVisible(true);
                     this.dispose(); 
-                } else if (login.equals("func")) {
-                    JOptionPane.showMessageDialog(this, "Bem-vindo, Funcionário!");
-                    //TelaSistema telaSistema = new TelaSistema();
-                    //telaSistema.setVisible(true);
+                } else if (FuncionariosData.pegar(login) != null) {
+                    //melhorar essa parte, tá fazendo duas consultas ao banco de dados
+                    Funcionario func = FuncionariosData.pegar(login);
+                    
+                    if(!senha.equals(func.getSenha())) {
+                        throw new Exception("Senha incorreta");
+                    }
+
+                    JOptionPane.showMessageDialog(this, "Bem-vindo, " + func.getNome() + "!");
+                    TelaSistema telaSistema = new TelaSistema(func);
+                    telaSistema.setVisible(true);
                     this.dispose();
                     
                 } else {

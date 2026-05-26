@@ -39,7 +39,7 @@ public class UsuariosData {
     public static void alterar(Usuario usuario) {
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:bancoUsuarios.db")) {
             Statement statement = connection.createStatement();
-            statement.execute("update UsuariosData set user = '" + usuario.getUser() + "', cpf = '" + usuario.getCpf() + "', senha = '" + usuario.getSenha() + "', idade = " + usuario.getIdade() + "', sexo = " + usuario.getSexo() + "', email = " + usuario.getEmail() + "', nome_do_cartao = " + usuario.getNome_do_cartao() + "', numero_do_cartao = " + usuario.getNumero_do_cartao() + "', codigo_verificador_do_cartao = " + usuario.getCodigo_verificador_do_cartao() + " where id = " + usuario.getId());
+            statement.execute("update UsuariosData set user = '" + usuario.getUser() + "', senha = '" + usuario.getSenha() + "', idade = " + usuario.getIdade() + ", sexo = '" + usuario.getSexo() + "', email = '" + usuario.getEmail() + "', nome_do_cartao = '" + usuario.getNome_do_cartao() + "', numero_do_cartao = '" + usuario.getNumero_do_cartao() + "', codigo_verificador_do_cartao = '" + usuario.getCodigo_verificador_do_cartao() + "' where cpf = '" + usuario.getCpf() + "'");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -92,10 +92,10 @@ public class UsuariosData {
         return null;
     }
 
-    public static void apagar(int id) {
+    public static void apagar(String user) {
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:bancoUsuarios.db")) {
             Statement statement = connection.createStatement();
-            statement.execute("delete from UsuariosData where id = " + id);
+            statement.execute("delete from UsuariosData where user = '" + user + "'");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

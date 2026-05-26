@@ -1,15 +1,14 @@
 package model;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+
+import data.*;
 import repository.GerenciaFilme;
 
 public class Funcionario extends Base implements GerenciaFilme {
 
-    double salario;
-    String url = "jdbc:sqlite:Usuarios.db";
+    private double salario;
 
-    public Funcionario(String nome, int idade, String email, double salario) {
-        super(nome, idade, email);
+    public Funcionario(String nome, int idade, String email, double salario, String senha) {
+        super(nome, idade, email, senha);
         this.salario = salario;
     }
 
@@ -21,26 +20,24 @@ public class Funcionario extends Base implements GerenciaFilme {
         this.salario = salario;
     }
     
-    @Override
     public void adicionarUsuario(Usuario usuario) {
-        
+        UsuariosData.inserir(usuario);
     }
 
-    @Override
     public void alterarUsuario(Usuario usuario) {
-        
+        UsuariosData.alterar(usuario);
     }
-    @Override
+    
     public void incluirFilme(Filme filme) {
-
+        FilmeData.inserir(filme);
     }
-    @Override
+    
     public void alterarFilme(Filme filme) {
-
+        FilmeData.alterar(filme);
     }
-    @Override
+    
     public void excluirFilme(Filme filme) {
-        
+        FilmeData.apagar(filme.getId());
     }
 
 }
