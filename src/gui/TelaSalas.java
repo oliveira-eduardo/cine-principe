@@ -21,6 +21,7 @@ import service.Sessao;
 public class TelaSalas extends JFrame {
     private Bilhete bilheteSala;
     private Sala [] salasCine;
+    private Sessao [] session;
     public TelaSalas(Sala [] salas,Bilhete bilhete){
         this.salasCine = salas;
         this.bilheteSala = bilhete;
@@ -38,7 +39,9 @@ public class TelaSalas extends JFrame {
         setLocationRelativeTo(null);
         inicializarComponentes();
     }
+    public TelaSalas(){
 
+    }
     private void inicializarComponentes(){
         JPanel janela = new JPanel(new BorderLayout(5, 5));
         janela.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 20));
@@ -85,14 +88,14 @@ public class TelaSalas extends JFrame {
                 botaoSala.addActionListener(e ->{
                     // se clicar no botao sala vai para area das sessoe que mostra os filmes
                     // salva no bilhete o index da sala
-                    bilheteSala.setSala(salasCine[index]);
-                    Sessao [] session = salasCine[index].getSessoes();
+                    this.setSession(salasCine[index].getSessoes());
+                    this.bilheteSala.setSala(salasCine[index]);
                     //chama a funcao para mostrar os filmes
-                    TelaFilmes mostrarFilme = new TelaFilmes(session, bilheteSala, salasCine);
+                    TelaFilmes mostrarFilme = new TelaFilmes(this);
                     // deixa visivel a tela para mostrar sessao
                     mostrarFilme.setVisible(true);
                     //fecha a tela de salas
-                    this.dispose();
+                    this.setVisible(false);
                 });
                 //adiciona o botao de sala
                 salasGrade.add(botaoSala);
@@ -103,4 +106,23 @@ public class TelaSalas extends JFrame {
         janela.add(salasGrade, BorderLayout.CENTER);
         add(janela);
     }
+    public Bilhete getBilheteSala() {
+        return bilheteSala;
+    }
+    public void setBilheteSala(Bilhete bilheteSala) {
+        this.bilheteSala = bilheteSala;
+    }
+    public Sala[] getSalasCine() {
+        return salasCine;
+    }
+    public void setSalasCine(Sala[] salasCine) {
+        this.salasCine = salasCine;
+    }
+    public Sessao[] getSession() {
+        return session;
+    }
+    public void setSession(Sessao[] session) {
+        this.session = session;
+    }
+    
 }
