@@ -6,6 +6,7 @@ model\CupomPromocional.class
 model\Usuario.class
 model\Estudante.class
 exceptions\FilmeNaoDisponivelNaHoraExeception.class
+gui\TelaPrincipal.class
 model\Produtos.class
 model\Filme.class
 model\Administrador.class

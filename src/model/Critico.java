@@ -20,7 +20,7 @@ public class Critico extends Usuario{
     }
 
     public void atribuirNota(double nota, Filme filme) {
-        if (nota >= 0 && nota <= 10) {
+        if (nota >= 0 && nota <= 10) { 
             
             int novaQtd = filme.getQuantidade_criticos() + 1;
             filme.setQuantidade_criticos(novaQtd);
