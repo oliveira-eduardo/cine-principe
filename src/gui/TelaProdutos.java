@@ -1,7 +1,6 @@
 package gui;
 
 import model.Produtos;
-//import model.Usuario;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
@@ -9,7 +8,7 @@ import java.util.Map;
 
 public class TelaProdutos extends JFrame {
 
-    //private Usuario usuarioLogado;
+    private TelaCadeira telaCadeira;
     private JSpinner[] spinnersQuantidade;
     private JLabel lblTotal;
     private double valorParcialprodutos = 0.0;
@@ -18,10 +17,9 @@ public class TelaProdutos extends JFrame {
     private Map<Produtos, Integer> itensSelecionados = new HashMap<>(); // Map é uma estrutura de dados do Java, pares de Chave -> Valor
 
     public TelaProdutos() {
-        //this.usuarioLogado = usuarioLogado;
-        
+        this.telaCadeira = telaCadeira;
         setTitle("Produtos Disponiveis");
-        setSize(450, 450);
+        setSize(550, 450);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -68,13 +66,22 @@ public class TelaProdutos extends JFrame {
         scrollPane.setBorder(null);
         add(scrollPane, BorderLayout.CENTER);
 
-        JPanel painelRodape = new JPanel(new BorderLayout());
+        JPanel painelRodape = new JPanel(new BorderLayout(10,10));
         painelRodape.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
 
         lblTotal = new JLabel("Subtotal: R$ 0,00");
         lblTotal.setFont(new Font("Arial", Font.BOLD, 16));
 
-        JButton btnAvancar = new JButton("Confirmar Produtos");
+        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));//???????
+
+        JButton btnVoltar = new JButton("Voltar aos Assentos");
+        btnVoltar.addActionListener(e -> {
+            // Mostra a tela de cadeiras novamente com as cadeiras ainda selecionadas
+            telaCadeira.setVisible(true);
+            this.dispose(); // usuário desistiu
+        });
+
+        JButton btnAvancar = new JButton("Ir para Pagamento");
         
         btnAvancar.addActionListener(e -> {
             salvarSelecao();
@@ -85,11 +92,16 @@ public class TelaProdutos extends JFrame {
                     "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             }
             
-            this.dispose(); // Fecha a tela
+            //TelaFinalizacao telaFim = new TelaFinalizacao(telaCadeira, this);
+            //telaFim.setVisible(true);
+            //this.setVisible(false);
         });
 
+        painelBotoes.add(btnVoltar);
+        painelBotoes.add(btnAvancar);
+
         painelRodape.add(lblTotal, BorderLayout.WEST);
-        painelRodape.add(btnAvancar, BorderLayout.EAST);
+        painelRodape.add(painelBotoes, BorderLayout.EAST);
         add(painelRodape, BorderLayout.SOUTH);
     }
 
