@@ -59,10 +59,10 @@ public class Sala {
 
         filmes [0] = new Filme("Agente Secreto", "2h40m", "Thriller/Crime", 25.0f, "src/imagens/O-AGENTE-SECRETO-Cartaz-WEB-717x1024-1-aspect-ratio-255-376-950523602.png");
         filmes [1] = new Filme("Hamnet", "2h 5m", "Tragédia/Drama", 30.0f,"src/imagens/Hamnet-movie-poster-1317530855.png");
-        filmes [2] = new Filme("Valor Sentimental", "2h 13m", "Drama/Tragicomedy", 20.0f,"src/imagens/ValorSentimental.jpg");
+        filmes [2] = new Filme("Valor Sentimental", "2h 13m", "Drama/Tragico", 20.0f,"src/imagens/ValorSentimental.jpg");
         filmes [3] = new Filme("Uma Batalha Após a Outra", "2h 42m", "Drama/Ação e suspense", 22.0f,"src/imagens/uma-batalha-apos-a-outra.jpg");
         filmes [4] = new Filme("Sonhos de Trem", "1h 43m", " Drama", 18.0f,"src/imagens/Sonhos_de_Trem.jpg");
-        filmes [5] = new Filme("Pecadores", "2h 17", "Terror/Ação", 20.0f,"src/imagens/Pecadores.jpg");
+        filmes [5] = new Filme("Pecadores", "2h 17m", "Terror/Ação", 20.0f,"src/imagens/Pecadores.jpg");
         filmes [6] = new Filme("A única saida", "2h 19m", "Comédia/Thriller", 25.0f,"src/imagens/NoOtherChoice.jpg");
 
         return filmes[num];

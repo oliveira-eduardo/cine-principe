@@ -1,10 +1,10 @@
 package repository;
 public enum Salas{
 
-    SALACOMUM("Sala comum", 1.0),
-    SALA3D("Sala 3D", 1.2),
-    SALAXD("Sala XD", 1.3),
-    SALAXD3D("Sala XD/3D", 1.4);
+    SALACOMUM("COMUM", 1.0),
+    SALA3D("3D", 1.2),
+    SALAXD("IMAX", 1.3),
+    SALAXD3D("IMAX/3D", 1.4);
 
     private String tipoSala;
     private double multiplicadorValor;
