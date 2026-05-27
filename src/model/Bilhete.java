@@ -7,6 +7,8 @@ public class Bilhete {
     private int indiceDaSessao;
     private String cadeira;
 
+    public Bilhete() {}
+
     public Bilhete(Usuario usuario, Sala sala, int indiceDaSessao, String cadeira){
         this.usuario = usuario;
         this.sala = sala;

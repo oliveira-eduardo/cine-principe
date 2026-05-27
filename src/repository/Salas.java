@@ -30,5 +30,14 @@ public enum Salas{
     public void setMultiplicadorValor(double multiplicadorValor) {
         this.multiplicadorValor = multiplicadorValor;
     }
+
+    public static Salas obterPorTipo(String nomeBuscado) {
+            for (Salas sala : Salas.values()) {
+                if (sala.getTipoSala().equals(nomeBuscado)) {
+                    return sala;
+            }
+        }
+        throw new IllegalArgumentException("Nenhuma sala encontrada com o nome: " + nomeBuscado);
+    }
        
 }

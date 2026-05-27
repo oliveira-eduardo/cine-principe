@@ -169,9 +169,9 @@ public class TelaCadeira extends JFrame {
                 if (bilhetes.isEmpty()) {
                     throw new VendasException("Não é possível avançar, escolha pelo menos 1 assento");
                 }
-                // TelaProdutos lanches = new TelaProdutos(this);
-                // lanches.setVisible(true);
-                // this.setVisible(false);
+                TelaProdutos lanches = new TelaProdutos(this);
+                lanches.setVisible(true);
+                this.setVisible(false);
             } catch (VendasException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Nenhum Assento Selecionado", JOptionPane.WARNING_MESSAGE);
             }

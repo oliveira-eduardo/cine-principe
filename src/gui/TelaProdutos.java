@@ -9,6 +9,7 @@ import java.util.Map;
 public class TelaProdutos extends JFrame {
 
     private TelaCadeira telaCadeira;
+    
     private JSpinner[] spinnersQuantidade;
     private JLabel lblTotal;
     private double valorParcialprodutos = 0.0;
@@ -16,7 +17,7 @@ public class TelaProdutos extends JFrame {
     
     private Map<Produtos, Integer> itensSelecionados = new HashMap<>(); // Map é uma estrutura de dados do Java, pares de Chave -> Valor
 
-    public TelaProdutos() {
+    public TelaProdutos(TelaCadeira telaCadeira) {
         this.telaCadeira = telaCadeira;
         setTitle("Produtos Disponiveis");
         setSize(550, 450);
@@ -92,9 +93,9 @@ public class TelaProdutos extends JFrame {
                     "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             }
             
-            //TelaFinalizacao telaFim = new TelaFinalizacao(telaCadeira, this);
-            //telaFim.setVisible(true);
-            //this.setVisible(false);
+            TelaDesconto telaDesconto = new TelaDesconto(this);
+            telaDesconto.setVisible(true);
+            this.setVisible(false);
         });
 
         painelBotoes.add(btnVoltar);
@@ -137,4 +138,13 @@ public class TelaProdutos extends JFrame {
     public double getValorTotalProdutos() {
         return valorParcialprodutos;
     }
+
+    public TelaCadeira getTelaCadeira() {
+        return telaCadeira;
+    }
+
+    public void setTelaCadeira(TelaCadeira telaCadeira) {
+        this.telaCadeira = telaCadeira;
+    }
+
 }

@@ -1,5 +1,7 @@
 package model;
+import java.util.ArrayList;
 import repository.Salas;
+
 public class Usuario {
     private int id;
     private String user;
@@ -104,11 +106,21 @@ public class Usuario {
         return codigo_verificador_do_cartao;
     }
 
-    public double comprarBilhete(int numBilhetes, Filme filme, Salas salas){
-        return numBilhetes * (filme.getValor() * salas.getMultiplicadorValor());
+    public double comprarBilhetes(ArrayList<Bilhete> bilhetes){
+        double valorDoFilme = bilhetes.get(0).getSessao().getFilme().getValor();
+
+        Salas tipoDeSala = Salas.obterPorTipo(bilhetes.get(0).getSala().getNomeDaSala());
+        double multiplicadorDaSala = tipoDeSala.getMultiplicadorValor();
+        
+        return bilhetes.size() * (valorDoFilme * multiplicadorDaSala);
     }
-     public double comprarBilhete(int numBilhetes, Filme filme, Salas salas, CupomPromocional cupom){
-        return numBilhetes * (filme.getValor() * salas.getMultiplicadorValor()) * cupom.getDesconto();
+
+    public double realizarCompra(double valorBilhetes, double valorProdutos) {
+        return (valorBilhetes + valorProdutos);
+    }
+
+    public double realizarCompra(double valorBilhetes, double valorProdutos, CupomPromocional cupom) {
+        return (valorBilhetes + valorProdutos) * cupom.getDesconto();
     }
 
     public String mostrarUsuario(){
