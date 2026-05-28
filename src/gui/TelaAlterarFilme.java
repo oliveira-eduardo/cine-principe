@@ -1,20 +1,30 @@
 package gui;
 
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import control.ControlAlterarFilme;
 import model.Base;
 import model.Filme;
-import repository.GerenciaFilme;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class TelaAlterarFilme extends JFrame {
 
     private Filme filme;
     private Base usuario;
+    private ControlAlterarFilme controlador; 
 
     public TelaAlterarFilme(Base usuarioLogado, Filme filmeSelecionado) {
         this.filme = filmeSelecionado;
         this.usuario = usuarioLogado;
+        this.controlador = new ControlAlterarFilme(this);
         
         setTitle("Alterar Filme - " + filme.getNome());
         setSize(450, 450);
@@ -48,37 +58,18 @@ public class TelaAlterarFilme extends JFrame {
         JButton btnSalvar = new JButton("Salvar Alterações");
 
         btnSalvar.addActionListener((ActionEvent e) -> {
-            try {
-                String nome = txtNome.getText();
-                String duracao = txtDuracao.getText();
-                String sinopse = txtSinopse.getText();
-                String nomeImagem = txtNomeImagem.getText();
-                
-                String valorStr = txtValor.getText().replace(",", "."); 
+            boolean sucesso = controlador.salvarAlteracoes(
+                txtNome.getText(),
+                txtDuracao.getText(),
+                txtSinopse.getText(),
+                txtValor.getText(),
+                txtNomeImagem.getText(),
+                this.filme,
+                this.usuario
+            );
 
-                if (nome.isEmpty() || duracao.isEmpty() || valorStr.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Nome, Duração e Valor são obrigatórios.", "Aviso", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-
-                float valor = Float.parseFloat(valorStr);
-
-                filme.setNome(nome);
-                filme.setDuracao(duracao);
-                filme.setSinopse(sinopse);
-                filme.setValor(valor);
-                filme.setNomeImagem(nomeImagem);
-
-                GerenciaFilme gerente = (GerenciaFilme) usuario;
-                gerente.incluirFilme(filme); 
-
-                JOptionPane.showMessageDialog(this, "Filme alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            if (sucesso) {
                 dispose(); 
-
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Digite um valor numérico válido para o ingresso (Ex: 25.50).", "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Erro ao processar as alterações: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -93,5 +84,18 @@ public class TelaAlterarFilme extends JFrame {
         painel.add(btnSalvar);
 
         add(painel);
+    }
+
+    // Métodos utilitários de renderização de caixa de mensagem (padrão MVC)
+    public void exibirMensagemAviso(String mensagem, String titulo) {
+        JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void exibirMensagemErro(String mensagem, String titulo) {
+        JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void exibirMensagemInformativa(String mensagem, String titulo) {
+        JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.INFORMATION_MESSAGE);
     }
 }
