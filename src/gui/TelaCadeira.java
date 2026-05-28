@@ -13,7 +13,7 @@ import javax.swing.UIManager;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 
-import exceptions.VendasException;
+import control.ControlCadeira; 
 import model.Bilhete;
 import service.Sessao;
 
@@ -24,22 +24,23 @@ public class TelaCadeira extends JFrame {
     private int[][] matrizCadeiras;
     private ArrayList<Bilhete> bilhetes = new ArrayList<Bilhete>();
     private ArrayList<int[]> coordenadasEscolhidas = new ArrayList<int[]>();
+    private ControlCadeira controlador; 
 
     public TelaCadeira(TelaFilmes telafilmes) {
         this.telafilmes = telafilmes;
         this.sessaoAtual = telafilmes.getSessao();
         this.matrizCadeiras = sessaoAtual.getCadeira();
-        try { //coloca o modo escuro direto
-            UIManager.setLookAndFeel(new FlatDarkLaf());
+        this.controlador = new ControlCadeira(this); 
 
+        try { // coloca o modo escuro direto
+            UIManager.setLookAndFeel(new FlatDarkLaf());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        //cria a janela base 
+        
         setTitle("Cadeiras disponiveis:");
         setSize(850, 600);
-        // mudar para DISPOSE_ON_CLOSE depois dos testes
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
         setLocationRelativeTo(null);
         mostrarCadeiras();
     }
@@ -110,34 +111,11 @@ public class TelaCadeira extends JFrame {
                     botaoCadeira.setBackground(new Color(160, 160, 160));
                 }
 
+                
                 botaoCadeira.addActionListener(e -> {
-                    try {
-                        if (matrizCadeiras[linhaMatriz][colunaMatriz] == 1) {
-                            throw new VendasException("A poltrona " + nomeAssento + " já foi selecionada");
-                        }
-
-                        if (sessaoAtual.escolhaCadeira(linhaMatriz, colunaMatriz)) {
-                            botaoCadeira.setBackground(new Color(230, 126, 34));
-
-                            int[] coordenadas = new int[2];
-
-                            
-                            coordenadas[0] = linhaMatriz;  
-                            coordenadas[1] = colunaMatriz; 
-
-                            coordenadasEscolhidas.add(coordenadas);
-
-                            Bilhete novoBilhete = new Bilhete();
-                            novoBilhete.setUsuario(telafilmes.getSalasCine().getBilheteSala().getUsuario());
-                            novoBilhete.setSala(telafilmes.getSalasCine().getBilheteSala().getSala());
-                            novoBilhete.setIndiceDaSessao(telafilmes.getSalasCine().getBilheteSala().getIndiceDaSessao());
-                            novoBilhete.setCadeira(nomeAssento);
-                            bilhetes.add(novoBilhete);
-
-                        }
-
-                    } catch (VendasException ex) {
-                        JOptionPane.showMessageDialog(this, ex.getMessage(), "Assento Indisponível", JOptionPane.WARNING_MESSAGE);
+                    boolean sucesso = controlador.selecionarAssento(linhaMatriz, colunaMatriz, nomeAssento);
+                    if (sucesso) {
+                        botaoCadeira.setBackground(new Color(230, 126, 34)); 
                     }
                 });
 
@@ -150,31 +128,12 @@ public class TelaCadeira extends JFrame {
 
         JButton botaoVoltar = new JButton("Voltar");
         botaoVoltar.addActionListener(e -> {
-            for (int i = 0; i < coordenadasEscolhidas.size(); i++) {
-                int[] coord = coordenadasEscolhidas.get(i);
-
-                int linha = coord[0];
-                int coluna = coord[1];
-                sessaoAtual.limparCadeira(linha, coluna);
-            }
-            bilhetes.clear();
-            coordenadasEscolhidas.clear();
-            telafilmes.setVisible(true);
-            this.dispose();
+            controlador.voltar();
         });
 
         JButton botaoAvancar = new JButton("Avançar para os Snacks");
         botaoAvancar.addActionListener(e -> {
-            try {
-                if (bilhetes.isEmpty()) {
-                    throw new VendasException("Não é possível avançar, escolha pelo menos 1 assento");
-                }
-                TelaProdutos lanches = new TelaProdutos(this);
-                lanches.setVisible(true);
-                this.setVisible(false);
-            } catch (VendasException ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "Nenhum Assento Selecionado", JOptionPane.WARNING_MESSAGE);
-            }
+            controlador.avancarParaSnacks();
         });
 
         painelBotoes.add(botaoVoltar, BorderLayout.WEST);
@@ -184,6 +143,11 @@ public class TelaCadeira extends JFrame {
         add(janela);
     }
 
+    public void exibirMensagemAviso(String mensagem, String titulo) {
+        JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.WARNING_MESSAGE);
+    }
+
+    // Getters e Setters para comunicação limpa com o Controlador
     public TelaFilmes getTelafilmes() {
         return telafilmes;
     }
@@ -192,11 +156,19 @@ public class TelaCadeira extends JFrame {
         this.telafilmes = telafilmes;
     }
 
+    public Sessao getSessaoAtual() {
+        return sessaoAtual;
+    }
+
+    public int[][] getMatrizCadeiras() {
+        return matrizCadeiras;
+    }
+
     public ArrayList<Bilhete> getBilhetes() {
         return bilhetes;
     }
 
-    public void setBilhetes(ArrayList<Bilhete> bilhetes) {
-        this.bilhetes = bilhetes;
+    public ArrayList<int[]> getCoordenadasEscolhidas() {
+        return coordenadasEscolhidas;
     }
 }

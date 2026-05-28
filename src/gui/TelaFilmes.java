@@ -21,18 +21,18 @@ import javax.swing.border.Border;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 
-import control.ControlFilme; // Importa o seu novo controlador
+import control.ControlFilme; 
 import service.Sessao;
 
 public class TelaFilmes extends JFrame {
 
     private TelaSalas salasCine;
     private Sessao sessao;
-    private ControlFilme controlador; // Atributo do controlador
+    private ControlFilme controlador; 
 
     public TelaFilmes(TelaSalas salas) {
         this.salasCine = salas;
-        this.controlador = new ControlFilme(this); // Inicializa o controlador passando esta tela
+        this.controlador = new ControlFilme(this); 
         
         try { // coloca o modo escuro direto
             UIManager.setLookAndFeel(new FlatDarkLaf());
@@ -133,7 +133,7 @@ public class TelaFilmes extends JFrame {
                 hora.setFont(new Font("Arial", Font.BOLD, 13));
                 hora.setForeground(new Color(241, 196, 15)); 
 
-                JLabel valor = new JLabel("Valor: " + salasCine.getSession()[i].getFilme().getValor() + "$");
+                JLabel valor = new JLabel("Valor: " + salasCine.getSession()[i].getFilme().getValor() + "R$");
                 valor.setFont(new Font("Arial", Font.BOLD, 13));
                 valor.setForeground(new Color(180, 185, 190)); 
 
