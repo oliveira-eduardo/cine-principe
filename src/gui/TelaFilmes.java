@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -9,6 +10,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,12 +19,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.UIManager;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
-import com.formdev.flatlaf.FlatDarkLaf;
-
-import control.ControlFilme; 
+import control.ControlFilme;
 import service.Sessao;
 
 public class TelaFilmes extends JFrame {
@@ -34,54 +35,74 @@ public class TelaFilmes extends JFrame {
         this.salasCine = salas;
         this.controlador = new ControlFilme(this); 
         
-        try { // coloca o modo escuro direto
-            UIManager.setLookAndFeel(new FlatDarkLaf());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        
-        // cria a janela base 
-        setTitle("Filmes da Sessão:");
-        setSize(850, 550); 
+        setTitle("CINE PRÍNCIPE - Programação");
+        setSize(915, 585); 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         mostrarFilmes();
     }
 
     private void mostrarFilmes() {
+        
+        Color fundoCreme = new Color(244, 240, 233);       
+        Color terracotaDestaque = new Color(166, 84, 55);  
+        Color grafiteTexto = new Color(28, 28, 28);        
+        Color cinzaMuted = new Color(125, 125, 125);       
+        Color cinzaLinhaSutil = new Color(225, 220, 212); 
+
+        
         JPanel janelaFilme = new JPanel(new BorderLayout(10, 10));
-        janelaFilme.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
+        janelaFilme.setBackground(fundoCreme);
+        janelaFilme.setBorder(BorderFactory.createEmptyBorder(25, 35, 20, 35));
 
-        JLabel tituloFilme = new JLabel("Filmes em Cartaz", JLabel.CENTER);
-        tituloFilme.setFont(new Font("Arial", Font.BOLD, 18));
-        tituloFilme.setForeground(Color.WHITE);
-
+        
         JPanel parteSuperior = new JPanel(new BorderLayout());
         parteSuperior.setOpaque(false);
 
         JPanel painelLogout = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         painelLogout.setOpaque(false);
 
-        JButton Logout = new JButton("Deslogar da Conta");
-        Logout.setFont(new Font("Arial", Font.PLAIN, 12));
-        Logout.putClientProperty("JButton.buttonType", "toolBarButton");
-        Logout.setForeground(Color.LIGHT_GRAY);
+        JButton Logout = new JButton("DESLOGAR");
+        Logout.setFont(new Font("Arial", Font.BOLD, 10));
+        Logout.setForeground(terracotaDestaque);
+        Logout.setBackground(fundoCreme);
+        Logout.setFocusPainted(false);
+        Logout.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 10));
+        Logout.putClientProperty("JButton.buttonType", "square");
 
         Logout.addActionListener(e -> {
             controlador.deslogar();
         });
         painelLogout.add(Logout);
 
+        JLabel tituloFilme = new JLabel("F I L M E S  E M  C A R T A Z", JLabel.CENTER);
+        tituloFilme.setFont(new Font("Serif", Font.PLAIN, 22));
+        tituloFilme.setForeground(grafiteTexto);
+
+        Component spacerHeader = Box.createRigidArea(new Dimension(80, 0));
+
         parteSuperior.add(painelLogout, BorderLayout.WEST);
         parteSuperior.add(tituloFilme, BorderLayout.CENTER);
+        parteSuperior.add(spacerHeader, BorderLayout.EAST);
+        
+        parteSuperior.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createMatteBorder(0, 0, 1, 0, cinzaLinhaSutil),
+            BorderFactory.createEmptyBorder(0, 0, 20, 0)
+        ));
 
         janelaFilme.add(parteSuperior, BorderLayout.NORTH);
 
-        JButton voltar = new JButton("Voltar");
-        voltar.setFont(new Font("Arial", Font.BOLD, 12));
-        voltar.putClientProperty("JButton.arc", 8); 
-
         
+        JButton voltar = new JButton("VOLTAR AS SALAS");
+        voltar.setFont(new Font("Arial", Font.BOLD, 11));
+        voltar.setForeground(grafiteTexto);
+        voltar.setBackground(fundoCreme);
+        voltar.setFocusPainted(false);
+        voltar.putClientProperty("JButton.buttonType", "square");
+        voltar.putClientProperty("Component.arc", 6);
+        voltar.setBorder(new LineBorder(grafiteTexto, 1, true));
+        voltar.setPreferredSize(new Dimension(150, 35));
+
         voltar.addActionListener(evt -> {
             controlador.voltarParaSalas();
         });
@@ -92,7 +113,8 @@ public class TelaFilmes extends JFrame {
 
         janelaFilme.add(painelBaixo, BorderLayout.SOUTH);
 
-        JPanel gradeFilmes = new JPanel(new GridLayout(0, 2, 20, 25));
+        
+        JPanel gradeFilmes = new JPanel(new GridLayout(0, 2, 35, 35));
         gradeFilmes.setOpaque(false);
 
         for (int i = 0; i < salasCine.getSession().length; i++) {
@@ -100,50 +122,69 @@ public class TelaFilmes extends JFrame {
                 final int index = i;
                 
                 JButton botaoFilme = new JButton();
-                botaoFilme.setLayout(new BorderLayout(18, 0));
-                botaoFilme.setPreferredSize(new Dimension(380, 180));                     
-                botaoFilme.setBackground(new Color(45, 48, 50));             
+                botaoFilme.setLayout(new BorderLayout(22, 0));
+                botaoFilme.setPreferredSize(new Dimension(390, 180));                     
+                botaoFilme.setFocusPainted(false);
                 
-                Border margemInterna = BorderFactory.createEmptyBorder(15, 15, 15, 15);
-                botaoFilme.setBorder(BorderFactory.createCompoundBorder(botaoFilme.getBorder(), margemInterna));
+                
+                botaoFilme.setBackground(fundoCreme); 
+                botaoFilme.putClientProperty("JButton.buttonType", "square");
+                botaoSalaArcProperty(botaoFilme, 4); 
+                
+                
+                Border margemInterna = BorderFactory.createEmptyBorder(12, 12, 16, 12);
+                botaoFilme.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createMatteBorder(0, 0, 1, 0, cinzaLinhaSutil), 
+                    margemInterna
+                ));
+                
                 
                 if (salasCine.getSession()[i].getFilme().getNomeImagem() != null) {
                     ImageIcon imagem = new ImageIcon(salasCine.getSession()[i].getFilme().getNomeImagem());
-                    Image imagemRed = imagem.getImage().getScaledInstance(85, 140, Image.SCALE_SMOOTH);
+                    Image imagemRed = gertScaledCardImage(imagem, 95, 150); 
                     JLabel infoFoto = new JLabel(new ImageIcon(imagemRed));
                     botaoFilme.add(infoFoto, BorderLayout.WEST);
                 }
 
-                JPanel infoFilme = new JPanel(new GridLayout(5, 1, 2, 2));
+                
+                JPanel infoFilme = new JPanel();
+                infoFilme.setLayout(new BoxLayout(infoFilme, BoxLayout.Y_AXIS));
                 infoFilme.setOpaque(false);
 
-                JLabel Nome = new JLabel(salasCine.getSession()[i].getFilme().getNome());
-                Nome.setFont(new Font("Arial", Font.BOLD, 16));
-                Nome.setForeground(Color.WHITE); 
+                JLabel Nome = new JLabel(salasCine.getSession()[i].getFilme().getNome().toUpperCase());
+                Nome.setFont(new Font("Serif", Font.BOLD, 16)); 
+                Nome.setForeground(grafiteTexto); 
 
-                JLabel Genero = new JLabel("Gênero: " + salasCine.getSession()[i].getFilme().getSinopse());
-                Genero.setFont(new Font("Arial", Font.PLAIN, 13));
-                Genero.setForeground(new Color(180, 185, 190)); 
+                JLabel Genero = new JLabel(salasCine.getSession()[i].getFilme().getSinopse());
+                Genero.setFont(new Font("Arial", Font.PLAIN, 12));
+                Genero.setForeground(cinzaMuted); 
 
-                JLabel Duracao = new JLabel("Duração: " + salasCine.getSession()[i].getFilme().getDuracao());
-                Duracao.setFont(new Font("Arial", Font.PLAIN, 13));
-                Duracao.setForeground(new Color(180, 185, 190));
+                JLabel Duracao = new JLabel(salasCine.getSession()[i].getFilme().getDuracao() + " min");
+                Duracao.setFont(new Font("Arial", Font.PLAIN, 12));
+                Duracao.setForeground(cinzaMuted);
+
+                JLabel valor = new JLabel("Ingresso: R$ " + salasCine.getSession()[i].getFilme().getValor());
+                valor.setFont(new Font("Arial", Font.PLAIN, 12));
+                valor.setForeground(grafiteTexto); 
 
                 JLabel hora = new JLabel("Horário: " + salasCine.getSession()[i].getHorario());
                 hora.setFont(new Font("Arial", Font.BOLD, 13));
-                hora.setForeground(new Color(241, 196, 15)); 
+                hora.setForeground(terracotaDestaque); 
 
-                JLabel valor = new JLabel("Valor: " + salasCine.getSession()[i].getFilme().getValor() + "R$");
-                valor.setFont(new Font("Arial", Font.BOLD, 13));
-                valor.setForeground(new Color(180, 185, 190)); 
-
+                
+                infoFilme.add(Box.createVerticalGlue());
                 infoFilme.add(Nome);
+                infoFilme.add(Box.createRigidArea(new Dimension(0, 5)));
                 infoFilme.add(Genero);
+                infoFilme.add(Box.createRigidArea(new Dimension(0, 2)));
                 infoFilme.add(Duracao);
+                infoFilme.add(Box.createRigidArea(new Dimension(0, 2)));
                 infoFilme.add(valor);
+                infoFilme.add(Box.createRigidArea(new Dimension(0, 8)));
                 infoFilme.add(hora);
+                infoFilme.add(Box.createVerticalGlue());
+                
                 botaoFilme.add(infoFilme, BorderLayout.CENTER);
-
 
                 botaoFilme.addActionListener(e -> {
                     controlador.selecionarFilme(index);
@@ -153,13 +194,30 @@ public class TelaFilmes extends JFrame {
             }
         }
 
+        
         JScrollPane painelRolagem = new JScrollPane(gradeFilmes);
-        painelRolagem.setBorder(null);
-        painelRolagem.setOpaque(false);
-        painelRolagem.getViewport().setOpaque(false);
+        
+        
+        painelRolagem.setBorder(BorderFactory.createEmptyBorder()); 
+        
+        
+        painelRolagem.setBackground(fundoCreme);
+        painelRolagem.getViewport().setBackground(fundoCreme);
+        painelRolagem.getVerticalScrollBar().setBackground(fundoCreme);
+        
+        
+        painelRolagem.getVerticalScrollBar().setUnitIncrement(16); 
 
         janelaFilme.add(painelRolagem, BorderLayout.CENTER);
         add(janelaFilme);
+    }
+
+    private Image gertScaledCardImage(ImageIcon src, int w, int h) {
+        return src.getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH);
+    }
+    
+    private void botaoSalaArcProperty(JButton btn, int val) {
+        btn.putClientProperty("Component.arc", val);
     }
 
     public void exibirMensagemErro(String mensagem) {

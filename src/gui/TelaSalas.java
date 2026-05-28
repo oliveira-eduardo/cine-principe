@@ -2,18 +2,19 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-
-import com.formdev.flatlaf.FlatDarkLaf;
+import javax.swing.border.LineBorder;
 
 import control.ControlSalas; 
 import model.Bilhete;
@@ -31,15 +32,8 @@ public class TelaSalas extends JFrame {
         this.bilheteSala = bilhete;
         this.controlador = new ControlSalas(this);
         
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        try { // coloca o modo escuro direto
-            UIManager.setLookAndFeel(new FlatDarkLaf());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        
-        setTitle("Salas - Cinema POO");
-        setSize(650, 480);
+        setTitle("CINE PRÍNCIPE - Salas");
+        setSize(700, 500); 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         inicializarComponentes();
@@ -49,65 +43,106 @@ public class TelaSalas extends JFrame {
     }
 
     private void inicializarComponentes() {
-        JPanel janela = new JPanel(new BorderLayout(5, 5));
-        janela.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 20));
+        
+        Color fundoCreme = new Color(244, 240, 233);       
+        Color terracotaDestaque = new Color(166, 84, 55);  
+        Color grafiteTexto = new Color(28, 28, 28);        
+        Color cinzaBorda = new Color(210, 205, 195);
 
+        
+        JPanel janela = new JPanel(new BorderLayout());
+        janela.setBackground(fundoCreme);
+        janela.setBorder(BorderFactory.createEmptyBorder(25, 45, 45, 45));
+
+        
         JPanel parteSuperior = new JPanel(new BorderLayout());
         parteSuperior.setOpaque(false);
 
-        // Titulo que aparece na tela
-        JLabel titulo = new JLabel("Selecione uma sala", JLabel.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 16));       
+        JButton Logout = new JButton("DESLOGAR");
+        Logout.setFont(new Font("Arial", Font.BOLD, 10));
+        Logout.setForeground(terracotaDestaque);
+        Logout.setBackground(fundoCreme);
+        Logout.setFocusPainted(false);
+        Logout.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 10));
+        Logout.putClientProperty("JButton.buttonType", "square");
 
-        JPanel painelLogout = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        painelLogout.setOpaque(false);
-
-        JButton Logout = new JButton("Deslogar da Conta");
-        Logout.setFont(new Font("Arial", Font.PLAIN, 12));
-
-        
         Logout.addActionListener(e -> {
             controlador.deslogar();
         });
-        painelLogout.add(Logout);
 
-        parteSuperior.add(painelLogout, BorderLayout.WEST);
+        JLabel titulo = new JLabel("E S C O L H A  U M A  S A L A", JLabel.CENTER);
+        titulo.setFont(new Font("Serif", Font.PLAIN, 22)); 
+        titulo.setForeground(grafiteTexto);
+
+        Component spacer = Box.createRigidArea(new Dimension(80, 0));
+
+        parteSuperior.add(Logout, BorderLayout.WEST);
         parteSuperior.add(titulo, BorderLayout.CENTER);
+        parteSuperior.add(spacer, BorderLayout.EAST);
+        
+        parteSuperior.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(215, 210, 200)),
+            BorderFactory.createEmptyBorder(0, 0, 20, 0)
+        ));
 
         janela.add(parteSuperior, BorderLayout.NORTH);   
 
-        // Cria uma painel para colocar as salas
-        JPanel salasGrade = new JPanel(new GridLayout(0, 4, 5, 15));
+        
+        JPanel painelCentral = new JPanel();
+        painelCentral.setLayout(new BoxLayout(painelCentral, BoxLayout.Y_AXIS));
+        painelCentral.setOpaque(false);
+
+        
+        JPanel salasGrade = new JPanel(new GridLayout(0, 2, 25, 25));
         salasGrade.setOpaque(false);
+        
+        salasGrade.setMaximumSize(new Dimension(480, 180)); 
 
         for (int i = 0; i < salasCine.length; i++) {
-            // um loop para criar um botao para cada sala que não estiver vazia
             if (salasCine[i] != null) {
                 final int index = i;
                 
-                // cria o botão da sala com o nome dela 
-                JButton botaoSala = new JButton(salasCine[i].getNomeDaSala());
-                botaoSala.setPreferredSize(new java.awt.Dimension(120, 60));
+                JButton botaoSala = new JButton(salasCine[i].getNomeDaSala().toUpperCase());
                 botaoSala.setFocusPainted(false);
-                botaoSala.setBackground(new Color(45, 48, 50));
-                botaoSala.setFont(new Font("Arial", Font.BOLD, 20));
-
                 
+                botaoSala.setBackground(Color.WHITE);
+                botaoSala.setForeground(grafiteTexto);
+                botaoSala.setFont(new Font("Arial", Font.BOLD, 13));
+                
+                
+                botaoSala.putClientProperty("JButton.buttonType", "square");
+                botaoSala.putClientProperty("Component.arc", 8);
+                
+                botaoSala.setBorder(BorderFactory.createCompoundBorder(
+                    new LineBorder(cinzaBorda, 1, true),
+                    BorderFactory.createEmptyBorder(20, 10, 20, 10) 
+                ));
+                
+                botaoSala.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseEntered(java.awt.event.MouseEvent evt) {
+                        botaoSala.setBackground(new Color(250, 248, 245));
+                    }
+                    public void mouseExited(java.awt.event.MouseEvent evt) {
+                        botaoSala.setBackground(Color.WHITE);
+                    }
+                });
+
                 botaoSala.addActionListener(e -> {
                     controlador.selecionarSala(index);
                 });
-                
                 
                 salasGrade.add(botaoSala);
             }
         }
         
-        
-        janela.add(salasGrade, BorderLayout.CENTER);
+        painelCentral.add(Box.createVerticalGlue());
+        painelCentral.add(salasGrade);
+        painelCentral.add(Box.createVerticalGlue());
+
+        janela.add(painelCentral, BorderLayout.CENTER);
         add(janela);
     }
 
-   
     public Bilhete getBilheteSala() {
         return bilheteSala;
     }

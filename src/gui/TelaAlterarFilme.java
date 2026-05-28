@@ -86,7 +86,7 @@ public class TelaAlterarFilme extends JFrame {
         add(painel);
     }
 
-    // Métodos utilitários de renderização de caixa de mensagem (padrão MVC)
+    
     public void exibirMensagemAviso(String mensagem, String titulo) {
         JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.WARNING_MESSAGE);
     }
