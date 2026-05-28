@@ -14,23 +14,19 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import data.AdministradoresData;
-import data.FilmeData;
-import data.FuncionariosData;
-import data.UsuariosData;
-import model.Administrador;
-import model.Bilhete;
-import model.Funcionario;
-import model.Sala;
-import model.Usuario;
+import control.ControlLogin;
 
 public class TelaLogin extends JFrame {
 
+    private ControlLogin controlador; 
+
     public TelaLogin() {
+        this.controlador = new ControlLogin(this); 
+        
         setTitle("Acesso ao Sistema");
         setSize(350, 340);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null); // Centraliza na tela
+        setLocationRelativeTo(null); 
 
         inicializarComponentes();
     }
@@ -55,69 +51,11 @@ public class TelaLogin extends JFrame {
         btnEntrar.setFont(new Font("Arial", Font.BOLD, 14));
         btnEntrar.setBackground(new Color(45, 48, 50));
         
-        // Autenticação
+        
         btnEntrar.addActionListener(e -> {
             String login = txtUser.getText();
             String senha = new String(txtSenha.getPassword());
-
-            if (login.isEmpty() || senha.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Preencha todos os campos.", "Aviso", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            try {
-                if (AdministradoresData.pegar(login) != null) {
-                    // melhorar essa parte, tá fazendo duas consultas ao banco de dados
-                    Administrador adm = AdministradoresData.pegar(login);
-
-                    if (!senha.equals(adm.getSenha())) {
-                        throw new Exception("Senha incorreta");
-                    }
-
-                    JOptionPane.showMessageDialog(this, "Bem-vindo, " + adm.getNome() + "!");
-                    TelaSistema telaSistema = new TelaSistema(adm);
-                    telaSistema.setVisible(true);
-                    this.dispose();
-                } else if (FuncionariosData.pegar(login) != null) {
-                    // melhorar essa parte, tá fazendo duas consultas ao banco de dados
-                    Funcionario func = FuncionariosData.pegar(login);
-
-                    if (!senha.equals(func.getSenha())) {
-                        throw new Exception("Senha incorreta");
-                    }
-
-                    JOptionPane.showMessageDialog(this, "Bem-vindo, " + func.getNome() + "!");
-                    TelaSistema telaSistema = new TelaSistema(func);
-                    telaSistema.setVisible(true);
-                    this.dispose();
-
-                } else {
-                    Usuario usuario = UsuariosData.pegar(login);
-                    if (usuario == null) {
-                        throw new Exception("Login nao reconhecido");
-                    }
-                    if (!senha.equals(usuario.getSenha())) {
-                        throw new Exception("Senha incorreta");
-                    }
-
-                    JOptionPane.showMessageDialog(this, "Bem-vindo, " + usuario.getUser() + "!");
-                    FilmeData.connect();
-                    Sala[] minhasSalas = new Sala[4];
-                    minhasSalas[0] = new Sala("IMAX");
-                    minhasSalas[1] = new Sala("3D");
-                    minhasSalas[2] = new Sala("COMUM");
-                    minhasSalas[3] = new Sala("IMAX/3D");
-                    Bilhete bilhete = new Bilhete();
-                    bilhete.setUsuario(usuario);
-                    TelaSalas telaSalas = new TelaSalas(minhasSalas, bilhete);
-                    telaSalas.setVisible(true);
-                    this.dispose();
-                }
-
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Usuário ou senha inválidos.", "Erro de Autenticação",
-                        JOptionPane.ERROR_MESSAGE);
-            }
+            controlador.autenticar(login, senha);
         });
 
         JLabel lblTitulo = new JLabel("Bem-vindo ao Cinema POO", JLabel.CENTER);
@@ -129,5 +67,17 @@ public class TelaLogin extends JFrame {
         painel.add(btnEntrar);
 
         add(painel);
+    }
+
+    public void exibirMensagemAviso(String mensagem, String titulo) {
+        JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void exibirMensagemInformativa(String mensagem, String titulo) {
+        JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void exibirMensagemErro(String mensagem, String titulo) {
+        JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.ERROR_MESSAGE);
     }
 }
