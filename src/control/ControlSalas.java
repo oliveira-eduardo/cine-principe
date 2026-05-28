@@ -1,6 +1,5 @@
 package control;
 import gui.TelaFilmes;
-import gui.TelaPrincipal;
 import gui.TelaSalas;
 
 public class ControlSalas {
@@ -21,8 +20,6 @@ public class ControlSalas {
     }
 
     public void deslogar() {
-        TelaPrincipal telaPrincipal = new TelaPrincipal();
-        telaPrincipal.setVisible(true);
         tela.dispose();
     }
 }

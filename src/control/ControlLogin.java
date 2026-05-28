@@ -1,6 +1,7 @@
 package control;
 
 import data.AdministradoresData;
+import data.CinemaDados;
 import data.FilmeData;
 import data.FuncionariosData;
 import data.UsuariosData;
@@ -63,11 +64,7 @@ public class ControlLogin {
                 tela.exibirMensagemInformativa("Bem-vindo, " + usuario.getUser() + "!", "Sucesso");
                 FilmeData.connect();
                 
-                Sala[] minhasSalas = new Sala[4];
-                minhasSalas[0] = new Sala("IMAX");
-                minhasSalas[1] = new Sala("3D");
-                minhasSalas[2] = new Sala("COMUM");
-                minhasSalas[3] = new Sala("IMAX/3D");
+                Sala[] minhasSalas = CinemaDados.getSalas();
                 
                 Bilhete bilhete = new Bilhete();
                 bilhete.setUsuario(usuario);
