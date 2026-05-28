@@ -1,24 +1,24 @@
 package gui;
 
 import model.Produtos;
+import control.ControlProdutos; 
+
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
 import java.util.Map;
 
 public class TelaProdutos extends JFrame {
 
     private TelaCadeira telaCadeira;
-    
     private JSpinner[] spinnersQuantidade;
     private JLabel lblTotal;
-    private double valorParcialprodutos = 0.0;
     
-    
-    private Map<Produtos, Integer> itensSelecionados = new HashMap<>(); // Map é uma estrutura de dados do Java, pares de Chave -> Valor
+    private ControlProdutos controller;
 
     public TelaProdutos(TelaCadeira telaCadeira) {
         this.telaCadeira = telaCadeira;
+        this.controller = new ControlProdutos();
+
         setTitle("Produtos Disponiveis");
         setSize(550, 450);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -35,13 +35,13 @@ public class TelaProdutos extends JFrame {
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(15, 0, 15, 0));
         add(lblTitulo, BorderLayout.NORTH);
 
-        Produtos[] listaProdutos = Produtos.values(); //Puxa todos os itens
+        Produtos[] listaProdutos = Produtos.values();
         spinnersQuantidade = new JSpinner[listaProdutos.length]; 
 
         JPanel painelProdutos = new JPanel(new GridLayout(listaProdutos.length, 1, 5, 5));
         painelProdutos.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
-        for (int i = 0; i < listaProdutos.length; i++) { //cria uma linha na tela para cada produto de forma dinamica
+        for (int i = 0; i < listaProdutos.length; i++) {
             Produtos produto = listaProdutos[i];
 
             JPanel painelItem = new JPanel(new BorderLayout());
@@ -55,7 +55,7 @@ public class TelaProdutos extends JFrame {
             JSpinner spinner = new JSpinner(modeloSpinner);
             spinner.setPreferredSize(new Dimension(60, 30));
             
-            spinner.addChangeListener(e -> recalcularTotal()); //Sempre que o cliente clicar na setinha para mudar a quantidade ele recalcula
+            spinner.addChangeListener(e -> recalcularTotal());
             spinnersQuantidade[i] = spinner;
 
             painelItem.add(lblNomePreco, BorderLayout.WEST);
@@ -73,23 +73,22 @@ public class TelaProdutos extends JFrame {
         lblTotal = new JLabel("Subtotal: R$ 0,00");
         lblTotal.setFont(new Font("Arial", Font.BOLD, 16));
 
-        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));//???????
+        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
 
         JButton btnVoltar = new JButton("Voltar aos Assentos");
         btnVoltar.addActionListener(e -> {
-            // Mostra a tela de cadeiras novamente com as cadeiras ainda selecionadas
             telaCadeira.setVisible(true);
-            this.dispose(); // usuário desistiu
+            this.dispose();
         });
 
         JButton btnAvancar = new JButton("Ir para Pagamento");
-        
         btnAvancar.addActionListener(e -> {
             salvarSelecao();
             
-            if(valorParcialprodutos > 0) {
+            double total = controller.getValorTotalProdutos(); // Pega do control
+            if(total > 0) {
                 JOptionPane.showMessageDialog(this, 
-                    "Produtos confirmados no valor de R$ " + String.format("%.2f", valorParcialprodutos), 
+                    "Produtos confirmados no valor de R$ " + String.format("%.2f", total), 
                     "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             }
             
@@ -106,37 +105,32 @@ public class TelaProdutos extends JFrame {
         add(painelRodape, BorderLayout.SOUTH);
     }
 
-    private void recalcularTotal() { //varre o array de spinners ao mesmo tempo que varre o Enum
-        valorParcialprodutos = 0.0;
-        Produtos[] listaProdutos = Produtos.values();
-
-        for (int i = 0; i < listaProdutos.length; i++) {
-            int quantidade = (int) spinnersQuantidade[i].getValue();
-            valorParcialprodutos += quantidade * listaProdutos[i].getPreco();
-        }
+    private void recalcularTotal() {
+        int[] quantidades = extrairQuantidadesDosSpinners();
         
-        lblTotal.setText(String.format("Subtotal: R$ %.2f", valorParcialprodutos));
+        double totalAtualizado = controller.calcularSubtotal(quantidades);
+        lblTotal.setText(String.format("Subtotal: R$ %.2f", totalAtualizado));
     }
 
     private void salvarSelecao() { 
-        itensSelecionados.clear(); // limpa o hashmap
-        Produtos[] listaProdutos = Produtos.values();
-        
-        for (int i = 0; i < listaProdutos.length; i++) {
-            int quantidade = (int) spinnersQuantidade[i].getValue();
-            if (quantidade > 0) {
-                itensSelecionados.put(listaProdutos[i], quantidade);
-            }
+        int[] quantidades = extrairQuantidadesDosSpinners();
+        controller.processarSelecao(quantidades);
+    }
+    
+    private int[] extrairQuantidadesDosSpinners() {
+        int[] quantidades = new int[spinnersQuantidade.length];
+        for (int i = 0; i < spinnersQuantidade.length; i++) {
+            quantidades[i] = (int) spinnersQuantidade[i].getValue();
         }
+        return quantidades;
     }
 
-    // Método para outra tela poder resgatar os produtos escolhidos depois
     public Map<Produtos, Integer> getItensSelecionados() {
-        return itensSelecionados;
+        return controller.getItensSelecionados();
     }
     
     public double getValorTotalProdutos() {
-        return valorParcialprodutos;
+        return controller.getValorTotalProdutos();
     }
 
     public TelaCadeira getTelaCadeira() {
@@ -146,5 +140,4 @@ public class TelaProdutos extends JFrame {
     public void setTelaCadeira(TelaCadeira telaCadeira) {
         this.telaCadeira = telaCadeira;
     }
-
 }
