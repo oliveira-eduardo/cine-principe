@@ -7,7 +7,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.time.LocalTime;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -22,28 +21,29 @@ import javax.swing.border.Border;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 
-import exceptions.VendasException;
+import control.ControlFilme; // Importa o seu novo controlador
 import service.Sessao;
 
 public class TelaFilmes extends JFrame {
 
     private TelaSalas salasCine;
     private Sessao sessao;
+    private ControlFilme controlador; // Atributo do controlador
 
     public TelaFilmes(TelaSalas salas) {
         this.salasCine = salas;
+        this.controlador = new ControlFilme(this); // Inicializa o controlador passando esta tela
         
-        try { //coloca o modo escuro direto
+        try { // coloca o modo escuro direto
             UIManager.setLookAndFeel(new FlatDarkLaf());
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        //cria a janela base 
+        
+        // cria a janela base 
         setTitle("Filmes da Sessão:");
         setSize(850, 550); 
-        // mudar para DISPOSE_ON_CLOSE depois dos testes
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         mostrarFilmes();
     }
@@ -64,15 +64,11 @@ public class TelaFilmes extends JFrame {
 
         JButton Logout = new JButton("Deslogar da Conta");
         Logout.setFont(new Font("Arial", Font.PLAIN, 12));
-        
-        
         Logout.putClientProperty("JButton.buttonType", "toolBarButton");
         Logout.setForeground(Color.LIGHT_GRAY);
 
         Logout.addActionListener(e -> {
-            TelaPrincipal telaPrincipal = new TelaPrincipal();
-            telaPrincipal.setVisible(true);
-            this.dispose();
+            controlador.deslogar();
         });
         painelLogout.add(Logout);
 
@@ -85,13 +81,17 @@ public class TelaFilmes extends JFrame {
         voltar.setFont(new Font("Arial", Font.BOLD, 12));
         voltar.putClientProperty("JButton.arc", 8); 
 
+        
+        voltar.addActionListener(evt -> {
+            controlador.voltarParaSalas();
+        });
+
         JPanel painelBaixo = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 10));
         painelBaixo.setOpaque(false);
         painelBaixo.add(voltar);
 
         janelaFilme.add(painelBaixo, BorderLayout.SOUTH);
 
-        // Grade de filmes organizada em 2 colunas
         JPanel gradeFilmes = new JPanel(new GridLayout(0, 2, 20, 25));
         gradeFilmes.setOpaque(false);
 
@@ -101,14 +101,12 @@ public class TelaFilmes extends JFrame {
                 
                 JButton botaoFilme = new JButton();
                 botaoFilme.setLayout(new BorderLayout(18, 0));
-                botaoFilme.setPreferredSize(new Dimension(380, 180));                       
+                botaoFilme.setPreferredSize(new Dimension(380, 180));                     
                 botaoFilme.setBackground(new Color(45, 48, 50));             
-                
                 
                 Border margemInterna = BorderFactory.createEmptyBorder(15, 15, 15, 15);
                 botaoFilme.setBorder(BorderFactory.createCompoundBorder(botaoFilme.getBorder(), margemInterna));
                 
-
                 if (salasCine.getSession()[i].getFilme().getNomeImagem() != null) {
                     ImageIcon imagem = new ImageIcon(salasCine.getSession()[i].getFilme().getNomeImagem());
                     Image imagemRed = imagem.getImage().getScaledInstance(85, 140, Image.SCALE_SMOOTH);
@@ -135,7 +133,7 @@ public class TelaFilmes extends JFrame {
                 hora.setFont(new Font("Arial", Font.BOLD, 13));
                 hora.setForeground(new Color(241, 196, 15)); 
 
-                JLabel valor = new JLabel("Valor: " + salasCine.getSession()[i].getFilme().getValor()+ "$");
+                JLabel valor = new JLabel("Valor: " + salasCine.getSession()[i].getFilme().getValor() + "$");
                 valor.setFont(new Font("Arial", Font.BOLD, 13));
                 valor.setForeground(new Color(180, 185, 190)); 
 
@@ -146,29 +144,9 @@ public class TelaFilmes extends JFrame {
                 infoFilme.add(hora);
                 botaoFilme.add(infoFilme, BorderLayout.CENTER);
 
+
                 botaoFilme.addActionListener(e -> {
-                    try {
-                        LocalTime horarioAtual = LocalTime.now();
-                        String horario = salasCine.getSession()[index].getHorario();
-                        LocalTime horarioSessao = LocalTime.parse(horario);
-
-                        if (horarioAtual.isAfter(horarioSessao)) {
-                            throw new VendasException("Erro ao escolher o filme");
-                        }
-
-                        salasCine.getBilheteSala().setIndiceDaSessao(index);
-                        this.setSessao(salasCine.getSession()[index]);
-                        TelaCadeira cadeiras = new TelaCadeira(this);
-                        cadeiras.setVisible(true);
-                        this.setVisible(false);
-                    } catch (VendasException ex) {
-                        JOptionPane.showMessageDialog(this, "Não é possível comprar o bilhete, o filme já não está mais sendo exibido.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    }
-                });
-                
-                voltar.addActionListener(evt -> {
-                    salasCine.setVisible(true);
-                    this.dispose();
+                    controlador.selecionarFilme(index);
                 });
                 
                 gradeFilmes.add(botaoFilme);
@@ -182,6 +160,10 @@ public class TelaFilmes extends JFrame {
 
         janelaFilme.add(painelRolagem, BorderLayout.CENTER);
         add(janelaFilme);
+    }
+
+    public void exibirMensagemErro(String mensagem) {
+        JOptionPane.showMessageDialog(this, mensagem, "Deu erro na operação", JOptionPane.ERROR_MESSAGE);
     }
 
     public TelaSalas getSalasCine() {
