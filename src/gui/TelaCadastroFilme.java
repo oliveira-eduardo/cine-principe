@@ -44,8 +44,8 @@ public class TelaCadastroFilme extends JFrame {
                 // Pega o texto do valor e troca vírgula por ponto para evitar erros no Float.parseFloat
                 String valorStr = txtValor.getText().replace(",", "."); 
 
-                if (nome.isEmpty() || duracao.isEmpty() || valorStr.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Nome, Duração e Valor são obrigatórios.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                if (nome.isEmpty() || duracao.isEmpty() || valorStr.isEmpty() || sinopse.isEmpty() || nomeImagem.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Todos os campos devem ser preenchidos.", "Aviso", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 

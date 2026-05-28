@@ -54,8 +54,8 @@ public class TelaCadastroUsuario extends JFrame {
                 String numCartao = txtNumCartao.getText();
                 String cvv = txtCvv.getText();
 
-                if (user.isEmpty() || cpf.isEmpty() || senha.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Usuário, CPF e Senha são obrigatórios.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                if (user.isEmpty() || cpf.isEmpty() || senha.isEmpty() || sexo.isEmpty() || email.isEmpty() || nomeCartao.isEmpty() || numCartao.isEmpty() || cvv.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Todos os campos devem ser preenchidos.", "Aviso", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 
