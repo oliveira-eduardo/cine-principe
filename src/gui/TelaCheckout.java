@@ -44,6 +44,7 @@ public class TelaCheckout extends JFrame {
         painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JPanel painelResumo = new JPanel(new GridLayout(7, 1, 5, 5));
+        painel.add(painelResumo, BorderLayout.CENTER);
         
         JLabel lblTitulo = new JLabel("Resumo do seu pedido:", JLabel.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 16));
@@ -67,10 +68,17 @@ public class TelaCheckout extends JFrame {
         painel.add(painelResumo, BorderLayout.CENTER);
 
         JButton btnFinalizar = new JButton("Finalizar Compra");
-        
         btnFinalizar.addActionListener(e -> control.finalizarCompra());
 
-        painel.add(btnFinalizar, BorderLayout.SOUTH);
+        JButton btnCancelar = new JButton("Cancelar Compra");
+        btnCancelar.addActionListener(e -> control.cancelarCompra());
+
+        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
+        painelBotoes.add(btnCancelar);
+        painelBotoes.add(btnFinalizar);
+
+        painel.add(painelBotoes, BorderLayout.SOUTH);
+        
         add(painel);
     }
 

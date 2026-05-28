@@ -88,4 +88,11 @@ public class ControlCheckout {
             tela.dispose();
         }
     }
+    public void cancelarCompra() {
+        tela.dispose();
+        
+        if (tela.getTelaDesconto() != null) {
+            tela.getTelaDesconto().setVisible(true);
+        }
+    }
 }
