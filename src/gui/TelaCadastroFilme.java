@@ -1,18 +1,25 @@
 package gui;
 
+import control.ControlCadastroFilme;
 import model.Base;
-import model.Filme;
-import repository.GerenciaFilme;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class TelaCadastroFilme extends JFrame {
 
+    private ControlCadastroFilme control;
     private Base usuarioLogado;
+
+    private JTextField txtNome;
+    private JTextField txtDuracao;
+    private JTextField txtSinopse;
+    private JTextField txtValor;
+    private JTextField txtNomeImagem;
 
     public TelaCadastroFilme(Base usuarioLogado) {
         this.usuarioLogado = usuarioLogado;
+        
+        this.control = new ControlCadastroFilme(this);
 
         setTitle("Cadastro de Filme");
         setSize(450, 400);
@@ -26,49 +33,15 @@ public class TelaCadastroFilme extends JFrame {
         JPanel painel = new JPanel(new GridLayout(6, 2, 10, 10));
         painel.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
 
-        JTextField txtNome = new JTextField();
-        JTextField txtDuracao = new JTextField(); 
-        JTextField txtSinopse = new JTextField(); 
-        JTextField txtValor = new JTextField();   
-        JTextField txtNomeImagem = new JTextField(); 
+        txtNome = new JTextField();
+        txtDuracao = new JTextField(); 
+        txtSinopse = new JTextField(); 
+        txtValor = new JTextField();   
+        txtNomeImagem = new JTextField(); 
 
         JButton btnCadastrar = new JButton("Cadastrar Filme");
 
-        btnCadastrar.addActionListener((ActionEvent e) -> {
-            try {
-                String nome = txtNome.getText();
-                String duracao = txtDuracao.getText();
-                String sinopse = txtSinopse.getText();
-                String nomeImagem = txtNomeImagem.getText();
-                
-                // Pega o texto do valor e troca vírgula por ponto para evitar erros no Float.parseFloat
-                String valorStr = txtValor.getText().replace(",", "."); 
-
-                if (nome.isEmpty() || duracao.isEmpty() || valorStr.isEmpty() || sinopse.isEmpty() || nomeImagem.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Todos os campos devem ser preenchidos.", "Aviso", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-
-                float valor = Float.parseFloat(valorStr);
-
-                Filme novoFilme = new Filme(0, nome, duracao, sinopse, valor, nomeImagem);
-
-                GerenciaFilme gerente = (GerenciaFilme) usuarioLogado;
-                gerente.incluirFilme(novoFilme); 
-
-                JOptionPane.showMessageDialog(this, 
-                    "Filme '" + novoFilme.getNome() + "' cadastrado com sucesso!", 
-                    "Sucesso", 
-                    JOptionPane.INFORMATION_MESSAGE);
-                
-                dispose();
-
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Digite um valor numérico válido para o ingresso (Ex: 25.50).", "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Erro ao processar os dados: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-        });
+        btnCadastrar.addActionListener(e -> control.cadastrarFilme());
 
         painel.add(new JLabel("Nome do Filme:"));           painel.add(txtNome);
         painel.add(new JLabel("Duração (ex: 120 min):"));   painel.add(txtDuracao);
@@ -80,5 +53,43 @@ public class TelaCadastroFilme extends JFrame {
         painel.add(btnCadastrar);
 
         add(painel);
+    }
+
+
+    public Base getUsuarioLogado() {
+        return usuarioLogado;
+    }
+
+    public JTextField getTxtNome() {
+        return txtNome;
+    }
+
+    public JTextField getTxtDuracao() {
+        return txtDuracao;
+    }
+
+    public JTextField getTxtSinopse() {
+        return txtSinopse;
+    }
+
+    public JTextField getTxtValor() {
+        return txtValor;
+    }
+
+    public JTextField getTxtNomeImagem() {
+        return txtNomeImagem;
+    }
+
+
+    public void exibirMensagemSucesso(String mensagem) {
+        JOptionPane.showMessageDialog(this, mensagem, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void exibirMensagemAviso(String mensagem) {
+        JOptionPane.showMessageDialog(this, mensagem, "Aviso", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void exibirMensagemErro(String mensagem) {
+        JOptionPane.showMessageDialog(this, mensagem, "Erro", JOptionPane.ERROR_MESSAGE);
     }
 }
