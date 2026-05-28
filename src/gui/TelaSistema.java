@@ -54,7 +54,7 @@ public class TelaSistema extends JFrame {
 
         btnAltUsuario.addActionListener(e -> {
             String usuarioDigitado = JOptionPane.showInputDialog(this,
-                    "Digite o Login ou CPF do usuário que deseja ALTERAR:");
+                    "Digite o Login do usuário que deseja ALTERAR:");
             control.alterarUsuario(usuarioDigitado);
         });
 
@@ -83,7 +83,7 @@ public class TelaSistema extends JFrame {
             btnExcluirUsuario = new JButton("Excluir Usuário");
             
             btnExcluirUsuario.addActionListener(e -> {
-                String usuarioDigitado = JOptionPane.showInputDialog(this, "Digite o identificador do usuário a EXCLUIR:");
+                String usuarioDigitado = JOptionPane.showInputDialog(this, "Digite o nome do usuário a EXCLUIR:");
                 control.excluirUsuario(usuarioDigitado);
             });
 
