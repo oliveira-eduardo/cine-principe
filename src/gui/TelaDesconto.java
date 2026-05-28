@@ -1,19 +1,25 @@
 package gui;
 
+import control.ControlDesconto;
 import model.CupomPromocional;
 import javax.swing.*;
 import java.awt.*;
 
 public class TelaDesconto extends JFrame {
 
+    private ControlDesconto control;
     private TelaProdutos telaProdutos;
     private CupomPromocional cupomAplicado;
     private String perfilSelecionado;
 
-    public TelaDesconto(TelaProdutos telaProdutos) {
+    private JComboBox<String> comboPerfil;
+    private JTextField txtCupom;
 
+    public TelaDesconto(TelaProdutos telaProdutos) {
         this.telaProdutos = telaProdutos;
         this.cupomAplicado = null;
+        
+        this.control = new ControlDesconto(this);
 
         setTitle("Descontos e Cupons");
         setSize(400, 250);
@@ -24,53 +30,37 @@ public class TelaDesconto extends JFrame {
     }
 
     private void inicializarComponentes() {
-        JPanel painel = new JPanel(new GridLayout(3, 2, 10, 20));
-        painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        setLayout(new BorderLayout());
+
+        JPanel painelCampos = new JPanel(new GridLayout(2, 2, 10, 20));
+        painelCampos.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JLabel lblPerfil = new JLabel("Perfil:");
         String[] opcoesPerfil = {"Nenhum", "Estudante", "Crítico"};
-        JComboBox<String> comboPerfil = new JComboBox<>(opcoesPerfil);
+        comboPerfil = new JComboBox<>(opcoesPerfil);
 
         JLabel lblCupom = new JLabel("Cupom Promocional:");
-        JTextField txtCupom = new JTextField();
+        txtCupom = new JTextField();
         txtCupom.setToolTipText("Deixe em branco se não possuir");
 
+        painelCampos.add(lblPerfil);
+        painelCampos.add(comboPerfil);
+        painelCampos.add(lblCupom);
+        painelCampos.add(txtCupom);
+
+        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+
+        JButton btnVoltar = new JButton("Voltar");
         JButton btnAvancar = new JButton("Avançar para Checkout");
 
-        btnAvancar.addActionListener(e -> {
-            perfilSelecionado = (String) comboPerfil.getSelectedItem();
-            
-            String textoCupom = txtCupom.getText().trim().toUpperCase(); 
+        btnVoltar.addActionListener(e -> control.voltar());
+        btnAvancar.addActionListener(e -> control.avancar());
 
-            if (!textoCupom.isEmpty()) {
-                try {
-                    cupomAplicado = CupomPromocional.valueOf(textoCupom);
-                    
-                } catch (IllegalArgumentException ex) {
-                    JOptionPane.showMessageDialog(this, 
-                        "Cupom inválido! Verifique o código ou deixe o campo em branco.", 
-                        "Aviso", 
-                        JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-            }
-
-            TelaCheckout telaCheckout = new TelaCheckout(this);
-            telaCheckout.setVisible(true);
-            
-            this.dispose();
-        });
-
-        painel.add(lblPerfil);
-        painel.add(comboPerfil);
+        painelBotoes.add(btnVoltar);
+        painelBotoes.add(btnAvancar);
         
-        painel.add(lblCupom);
-        painel.add(txtCupom);
-        
-        painel.add(new JLabel(""));
-        painel.add(btnAvancar);
-
-        add(painel);
+        add(painelCampos, BorderLayout.CENTER);
+        add(painelBotoes, BorderLayout.SOUTH);
     }
 
     public TelaProdutos getTelaProdutos() {
@@ -95,5 +85,17 @@ public class TelaDesconto extends JFrame {
 
     public void setPerfilSelecionado(String perfilSelecionado) {
         this.perfilSelecionado = perfilSelecionado;
+    }
+
+    public JComboBox<String> getComboPerfil() {
+        return comboPerfil;
+    }
+
+    public JTextField getTxtCupom() {
+        return txtCupom;
+    }
+
+    public void exibirMensagemAviso(String mensagem) {
+        JOptionPane.showMessageDialog(this, mensagem, "Aviso", JOptionPane.WARNING_MESSAGE);
     }
 }
