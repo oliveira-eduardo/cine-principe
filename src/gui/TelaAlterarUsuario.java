@@ -1,19 +1,35 @@
 package gui;
 
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+
+import control.ControlAlterarUsuario;
 import model.Base;
 import model.Usuario;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class TelaAlterarUsuario extends JFrame {
 
     private Base funcionario;
     private Usuario usuario;
+    private ControlAlterarUsuario controlador; 
 
     public TelaAlterarUsuario(Base usuario, Usuario usuarioSelecionado) {
         this.funcionario = usuario;
         this.usuario = usuarioSelecionado;
+        this.controlador = new ControlAlterarUsuario(this); 
         
         setTitle("Alterar Usuário - " + usuario.getNome());
         setSize(450, 550);
@@ -42,7 +58,6 @@ public class TelaAlterarUsuario extends JFrame {
         JTextField txtNumCartao = new JTextField();
         JTextField txtCvv = new JTextField();
 
-
         txtUser.setText(usuario.getUser());
         
         txtCpf.setText(usuario.getCpf());
@@ -56,46 +71,27 @@ public class TelaAlterarUsuario extends JFrame {
         txtNomeCartao.setText(usuario.getNome_do_cartao());
         txtNumCartao.setText(usuario.getNumero_do_cartao());
         txtCvv.setText(usuario.getCodigo_verificador_do_cartao());
-        
 
         JButton btnSalvar = new JButton("Salvar Alterações");
 
-        
         btnSalvar.addActionListener((ActionEvent e) -> {
-            try {
-                String user = txtUser.getText();
-                String senha = new String(txtSenha.getPassword());
-                int idade = (int) spinIdade.getValue();
-                String sexo = (String) comboSexo.getSelectedItem();
-                String email = txtEmail.getText();
-                String nomeCartao = txtNomeCartao.getText();
-                String numCartao = txtNumCartao.getText();
-                String cvv = txtCvv.getText();
+            boolean sucesso = controlador.salvarAlteracoes(
+                txtUser.getText(),
+                new String(txtSenha.getPassword()),
+                (int) spinIdade.getValue(),
+                (String) comboSexo.getSelectedItem(),
+                txtEmail.getText(),
+                txtNomeCartao.getText(),
+                txtNumCartao.getText(),
+                txtCvv.getText(),
+                this.usuario,
+                this.funcionario
+            );
 
-                if (user.isEmpty() || senha.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Usuário e Senha são obrigatórios.", "Aviso", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-
-                usuario.setUser(user);
-                usuario.setSenha(senha);
-                usuario.setIdade(idade);
-                usuario.setSexo(sexo);
-                usuario.setEmail(email);
-                usuario.setNome_do_cartao(nomeCartao);
-                usuario.setNumero_do_cartao(numCartao);
-                usuario.setCodigo_verificador_do_cartao(cvv);
-
-                funcionario.alterarUsuario(usuario);
-
-                JOptionPane.showMessageDialog(this, "Dados alterados com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                dispose(); 
-
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Erro ao processar as alterações.", "Erro", JOptionPane.ERROR_MESSAGE);
+            if (sucesso) {
+                dispose();
             }
         });
-
 
         painel.add(new JLabel("Usuário:"));               painel.add(txtUser);
         painel.add(new JLabel("CPF (Não editável):"));    painel.add(txtCpf);
@@ -111,5 +107,17 @@ public class TelaAlterarUsuario extends JFrame {
         painel.add(btnSalvar);
 
         add(painel);
+    }
+
+    public void exibirMensagemAviso(String mensagem, String titulo) {
+        JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void exibirMensagemErro(String mensagem, String titulo) {
+        JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void exibirMensagemInformativa(String mensagem, String titulo) {
+        JOptionPane.showMessageDialog(this, mensagem, titulo, JOptionPane.INFORMATION_MESSAGE);
     }
 }

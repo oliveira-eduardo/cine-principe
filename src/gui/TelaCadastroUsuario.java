@@ -1,17 +1,30 @@
 package gui;
 
-import control.CadastroUsuarioController;
-import model.Usuario;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+
+import control.ControlCadastroUsuario;
+import model.Usuario;
 
 public class TelaCadastroUsuario extends JFrame {
 
-    private CadastroUsuarioController controller;
+    private ControlCadastroUsuario controller;
 
     public TelaCadastroUsuario() {
-        this.controller = new CadastroUsuarioController(); 
+        this.controller = new ControlCadastroUsuario(); 
 
         setTitle("Cadastro de Usuário");
         setSize(450, 550);
