@@ -116,7 +116,7 @@ public class TelaFilmes extends JFrame {
                     botaoFilme.add(infoFoto, BorderLayout.WEST);
                 }
 
-                JPanel infoFilme = new JPanel(new GridLayout(4, 1, 2, 2));
+                JPanel infoFilme = new JPanel(new GridLayout(5, 1, 2, 2));
                 infoFilme.setOpaque(false);
 
                 JLabel Nome = new JLabel(salasCine.getSession()[i].getFilme().getNome());
@@ -135,9 +135,14 @@ public class TelaFilmes extends JFrame {
                 hora.setFont(new Font("Arial", Font.BOLD, 13));
                 hora.setForeground(new Color(241, 196, 15)); 
 
+                JLabel valor = new JLabel("Valor: " + salasCine.getSession()[i].getFilme().getValor() + "$");
+                valor.setFont(new Font("Arial", Font.BOLD, 13));
+                valor.setForeground(new Color(241, 196, 15)); 
+
                 infoFilme.add(Nome);
                 infoFilme.add(Genero);
                 infoFilme.add(Duracao);
+                infoFilme.add(valor);
                 infoFilme.add(hora);
                 botaoFilme.add(infoFilme, BorderLayout.CENTER);
 

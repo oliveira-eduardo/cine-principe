@@ -1,21 +1,34 @@
 package gui;
 
-import model.Bilhete;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import data.AdministradoresData;
+import data.FilmeData;
+import data.FuncionariosData;
+import data.UsuariosData;
 import model.Administrador;
+import model.Bilhete;
 import model.Funcionario;
 import model.Sala;
 import model.Usuario;
-import javax.swing.*;
-
-import data.*;
-
-import java.awt.*;
 
 public class TelaLogin extends JFrame {
 
     public TelaLogin() {
         setTitle("Acesso ao Sistema");
-        setSize(350, 250);
+        setSize(350, 340);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null); // Centraliza na tela
 
@@ -39,7 +52,9 @@ public class TelaLogin extends JFrame {
         painelCampos.add(txtSenha);
 
         JButton btnEntrar = new JButton("Entrar");
-
+        btnEntrar.setFont(new Font("Arial", Font.BOLD, 14));
+        btnEntrar.setBackground(new Color(45, 48, 50));
+        
         // Autenticação
         btnEntrar.addActionListener(e -> {
             String login = txtUser.getText();
@@ -105,7 +120,11 @@ public class TelaLogin extends JFrame {
             }
         });
 
-        painel.add(new JLabel("Bem-vindo ao Cinema POO", JLabel.CENTER));
+        JLabel lblTitulo = new JLabel("Bem-vindo ao Cinema POO", JLabel.CENTER);
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 15));
+        lblTitulo.setForeground(Color.WHITE);
+
+        painel.add(lblTitulo, BorderLayout.NORTH);
         painel.add(painelCampos);
         painel.add(btnEntrar);
 
