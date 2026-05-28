@@ -135,9 +135,9 @@ public class TelaFilmes extends JFrame {
                 hora.setFont(new Font("Arial", Font.BOLD, 13));
                 hora.setForeground(new Color(241, 196, 15)); 
 
-                JLabel valor = new JLabel("Valor: " + salasCine.getSession()[i].getFilme().getValor() + "$");
+                JLabel valor = new JLabel("Valor: " + salasCine.getSession()[i].getFilme().getValor()+ "$");
                 valor.setFont(new Font("Arial", Font.BOLD, 13));
-                valor.setForeground(new Color(241, 196, 15)); 
+                valor.setForeground(new Color(180, 185, 190)); 
 
                 infoFilme.add(Nome);
                 infoFilme.add(Genero);

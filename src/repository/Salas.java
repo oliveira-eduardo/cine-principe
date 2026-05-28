@@ -19,10 +19,6 @@ public enum Salas{
         return tipoSala;
     }
 
-    public void setTipoSala(String tipoSala) {
-        this.tipoSala = tipoSala;
-    }
-
     public double getMultiplicadorValor() {
         return multiplicadorValor;
     }
