@@ -1,6 +1,6 @@
 package gui;
 
-import data.UsuariosData;
+import control.CadastroUsuarioController;
 import model.Usuario;
 import javax.swing.*;
 import java.awt.*;
@@ -8,17 +8,20 @@ import java.awt.event.ActionEvent;
 
 public class TelaCadastroUsuario extends JFrame {
 
+    private CadastroUsuarioController controller;
+
     public TelaCadastroUsuario() {
+        this.controller = new CadastroUsuarioController(); 
+
         setTitle("Cadastro de Usuário");
         setSize(450, 550);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Fecha apenas esta janela, não o app todo
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
         inicializarComponentes();
     }
 
     private void inicializarComponentes() {
-        // GridLayout 
         JPanel painel = new JPanel(new GridLayout(10, 2, 10, 10));
         painel.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
 
@@ -26,11 +29,9 @@ public class TelaCadastroUsuario extends JFrame {
         JTextField txtCpf = new JTextField();
         JPasswordField txtSenha = new JPasswordField();
         
-        // JSpinner para a idade
         SpinnerModel spinnerModel = new SpinnerNumberModel(18, 0, 120, 1);
         JSpinner spinIdade = new JSpinner(spinnerModel);
         
-        // JComboBox para o sexo
         String[] opcoesSexo = {"Masculino", "Feminino", "Outro", "Prefiro não informar"};
         JComboBox<String> comboSexo = new JComboBox<>(opcoesSexo);
         
@@ -41,12 +42,11 @@ public class TelaCadastroUsuario extends JFrame {
 
         JButton btnCadastrar = new JButton("Finalizar Cadastro");
 
-        //Botão
         btnCadastrar.addActionListener((ActionEvent e) -> {
             try {
                 String user = txtUser.getText();
                 String cpf = txtCpf.getText();
-                String senha = new String(txtSenha.getPassword()); // JPasswordField retorna char[], precisamos converter
+                String senha = new String(txtSenha.getPassword());
                 int idade = (int) spinIdade.getValue();
                 String sexo = (String) comboSexo.getSelectedItem();
                 String email = txtEmail.getText();
@@ -54,27 +54,21 @@ public class TelaCadastroUsuario extends JFrame {
                 String numCartao = txtNumCartao.getText();
                 String cvv = txtCvv.getText();
 
-                if (user.isEmpty() || cpf.isEmpty() || senha.isEmpty() || sexo.isEmpty() || email.isEmpty() || nomeCartao.isEmpty() || numCartao.isEmpty() || cvv.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Todos os campos devem ser preenchidos.", "Aviso", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-
-                Usuario novoUsuario = new Usuario(user, cpf, senha, idade, sexo, email, nomeCartao, numCartao, cvv);
-                UsuariosData.inserir(novoUsuario);
+                Usuario usuarioCriado = controller.registarUsuario(user, cpf, senha, idade, sexo, email, nomeCartao, numCartao, cvv);
 
                 JOptionPane.showMessageDialog(this, 
-                    "Cadastro realizado com sucesso!\n\nDados:\n" + novoUsuario.mostrarUsuario(), 
+                    "Cadastro realizado com sucesso!\n\nDados:\n" + usuarioCriado.mostrarUsuario(), 
                     "Sucesso", 
                     JOptionPane.INFORMATION_MESSAGE);
                 
                 dispose(); 
+
 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Erro ao processar os dados.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         });
 
-        //Montando o layout
         painel.add(new JLabel("Usuário:"));               painel.add(txtUser);
         painel.add(new JLabel("CPF:"));                   painel.add(txtCpf);
         painel.add(new JLabel("Senha:"));                 painel.add(txtSenha);
