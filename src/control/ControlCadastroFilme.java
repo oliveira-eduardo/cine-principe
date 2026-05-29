@@ -17,11 +17,11 @@ public class ControlCadastroFilme {
             String nome = tela.getTxtNome().getText().trim();
             String duracao = tela.getTxtDuracao().getText().trim();
             String sinopse = tela.getTxtSinopse().getText().trim();
-            String nomeImagem = tela.getTxtNomeImagem().getText().trim();
+            String nomeImagem = "src/imagens/placeholder.jpeg";
             
             String valorStr = tela.getTxtValor().getText().trim().replace(",", "."); 
 
-            if (nome.isEmpty() || duracao.isEmpty() || valorStr.isEmpty() || sinopse.isEmpty() || nomeImagem.isEmpty()) {
+            if (nome.isEmpty() || duracao.isEmpty() || valorStr.isEmpty() || sinopse.isEmpty()) {
                 tela.exibirMensagemAviso("Todos os campos devem ser preenchidos.");
                 return;
             }

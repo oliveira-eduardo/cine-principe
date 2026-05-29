@@ -14,7 +14,6 @@ public class TelaCadastroFilme extends JFrame {
     private JTextField txtDuracao;
     private JTextField txtSinopse;
     private JTextField txtValor;
-    private JTextField txtNomeImagem;
 
     public TelaCadastroFilme(Base usuarioLogado) {
         this.usuarioLogado = usuarioLogado;
@@ -36,8 +35,7 @@ public class TelaCadastroFilme extends JFrame {
         txtNome = new JTextField();
         txtDuracao = new JTextField(); 
         txtSinopse = new JTextField(); 
-        txtValor = new JTextField();   
-        txtNomeImagem = new JTextField(); 
+        txtValor = new JTextField();
 
         JButton btnCadastrar = new JButton("Cadastrar Filme");
 
@@ -47,7 +45,6 @@ public class TelaCadastroFilme extends JFrame {
         painel.add(new JLabel("Duração (ex: 120 min):"));   painel.add(txtDuracao);
         painel.add(new JLabel("Sinopse:"));                 painel.add(txtSinopse);
         painel.add(new JLabel("Valor do Ingresso (R$):"));  painel.add(txtValor);
-        painel.add(new JLabel("Nome da Imagem (Arquivo):"));painel.add(txtNomeImagem);
         
         painel.add(new JLabel(""));
         painel.add(btnCadastrar);
@@ -75,11 +72,6 @@ public class TelaCadastroFilme extends JFrame {
     public JTextField getTxtValor() {
         return txtValor;
     }
-
-    public JTextField getTxtNomeImagem() {
-        return txtNomeImagem;
-    }
-
 
     public void exibirMensagemSucesso(String mensagem) {
         JOptionPane.showMessageDialog(this, mensagem, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
