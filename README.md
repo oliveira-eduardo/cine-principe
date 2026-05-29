@@ -1,4 +1,4 @@
-# cinema Poo
+# Cine Príncipe
 Integrantes
 
     João Guilherme
@@ -9,7 +9,7 @@ Integrantes
 
 Sobre o Projeto
 
-# Cine Príncipe - Sistema de Gestão e Compra de Ingressos
+## Sistema de Gestão e Compra de Ingressos
 
 O **Cine Príncipe** é uma aplicação desktop desenvolvida em **Java** para a gestão completa de um cinema, englobando desde o fluxo de compra de ingressos e conveniências pelo cliente até o controle administrativo de catálogo, funcionários e usuários. 
 
