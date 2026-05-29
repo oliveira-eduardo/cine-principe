@@ -85,17 +85,7 @@ public class Bilhete {
     }
 
     /*metodos ----------------------------------------------------------------------------- */
-    
-    //incrementar posteriormente
-    public float calcularPreco(char tipoDoBilhete) {
-        if(tipoDoBilhete == 'i') {
-            return getValor();
-        } else {
-            return getValor()/2;
-        }
-    }
 
-    //incrementar posteriormente
     public String gerarBilhete() {
         return "Nome: " + getUser() + " Cpf: " + getCpf() + " Sala: " + getNomeDaSala()
          + " Sessao: " + (indiceDaSessao+1) + " Filme: " + getNomeDoFilme() + " Valor: " + getValor()

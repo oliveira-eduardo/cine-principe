@@ -8,9 +8,9 @@ public class Estudante extends Usuario{
     }
 
     public double comprarBilhetes(ArrayList<Bilhete> bilhetes){
-        double valorDoFilme = bilhetes.get(0).getSessao().getFilme().getValor();
+        double valorDoFilme = bilhetes.get(0).getValor();
 
-        Salas tipoDeSala = Salas.obterPorTipo(bilhetes.get(0).getSala().getNomeDaSala());
+        Salas tipoDeSala = Salas.obterPorTipo(bilhetes.get(0).getNomeDaSala());
         double multiplicadorDaSala = tipoDeSala.getMultiplicadorValor();
         
         return (bilhetes.size() * (valorDoFilme * multiplicadorDaSala))/2;

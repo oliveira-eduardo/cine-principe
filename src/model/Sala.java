@@ -28,8 +28,6 @@ public class Sala {
         this.nomeDaSala = nomeDaSala;
     }
 
-    //exibirSessoes(recebe a sala que a pessoa tem interesse)
-
     public Sala(String nomeDaSala){
         this.nomeDaSala = nomeDaSala;
         Random gerador = new Random();
