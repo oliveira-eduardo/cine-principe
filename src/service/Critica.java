@@ -3,6 +3,15 @@ public class Critica {
     private String  nome_critica;
     private String origem;
     private String comentario;
+    private double nota;
+
+    public double getNota() {
+        return nota;
+    }
+
+    public void setNota(double nota) {
+        this.nota = nota;
+    }
 
     public String getNome_critica() {
         return nome_critica;
@@ -28,10 +37,11 @@ public class Critica {
         this.comentario = comentario;
     }
 
-    public Critica(String nome_critica, String origem, String comentario){
+    public Critica(String nome_critica, String origem, String comentario, double nota){
         this.nome_critica=nome_critica;
         this.origem=origem;
         this.comentario=comentario;
+        this.nota = nota;
     }
 
     public Critica() {

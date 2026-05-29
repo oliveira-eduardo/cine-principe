@@ -1,7 +1,9 @@
 package control;
 
 import gui.TelaDesconto;
+import data.CriticosData;
 import gui.TelaCheckout;
+import model.Usuario;
 import model.CupomPromocional;
 
 public class ControlDesconto {
@@ -17,11 +19,22 @@ public class ControlDesconto {
         tela.dispose();
     }
 
-    public void avancar() {
+    public void avancar(Usuario usuario) {
         String perfil = (String) tela.getComboPerfil().getSelectedItem();
         String textoCupom = tela.getTxtCupom().getText().trim().toUpperCase();
 
-        tela.setPerfilSelecionado(perfil);
+        if(perfil.equals("Crítico")) {
+            try {
+                if(CriticosData.pegar(usuario.getUser()) == null)
+                    throw new IllegalArgumentException("Não é crítico");
+                tela.setPerfilSelecionado(perfil);
+            } catch (IllegalArgumentException ex) {
+                tela.exibirMensagemAviso("Apenas para críticos cadastrados.");
+                return;
+            }
+        } else {
+            tela.setPerfilSelecionado(perfil);
+        }
 
         if (!textoCupom.isEmpty()) {
             try {

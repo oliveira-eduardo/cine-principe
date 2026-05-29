@@ -136,7 +136,7 @@ public class TelaDesconto extends JFrame {
 
         
         btnVoltar.addActionListener(e -> control.voltar());
-        btnAvancar.addActionListener(e -> control.avancar());
+        btnAvancar.addActionListener(e -> control.avancar(telaProdutos.getTelaCadeira().getBilhetes().get(0).getUsuario()));
 
         painelBotoes.add(btnVoltar);
         painelBotoes.add(btnAvancar);

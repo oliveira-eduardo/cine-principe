@@ -2,6 +2,7 @@ package control;
 
 import data.AdministradoresData;
 import data.CinemaDados;
+import data.CriticosData;
 import data.FilmeData;
 import data.FuncionariosData;
 import data.UsuariosData;
@@ -55,7 +56,9 @@ public class ControlLogin {
             } else {
                 Usuario usuario = UsuariosData.pegar(login);
                 if (usuario == null) {
-                    throw new Exception("Login nao reconhecido");
+                    usuario = CriticosData.pegar(login);
+                    if(usuario == null) 
+                        throw new Exception("Login nao reconhecido");
                 }
                 if (!senha.equals(usuario.getSenha())) {
                     throw new Exception("Senha incorreta");
