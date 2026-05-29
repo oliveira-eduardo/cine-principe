@@ -5,7 +5,7 @@ import javax.swing.UIManager;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 
-public class Teste_Tela {
+public class TelaMain {
 
     public static void main(String[] args) {
 
