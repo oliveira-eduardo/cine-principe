@@ -55,14 +55,14 @@ public class ControlSistema {
 
     public void excluirUsuario(String identificador) {
         if (identificador != null && !identificador.trim().isEmpty()) {
-            if (tela.pedirConfirmacao("Deseja excluir '" + identificador + "'?")) {
-                if (tela.getUsuarioLogado() instanceof Administrador) {
+            if (UsuariosData.pegar(identificador) != null) {
+                if (tela.pedirConfirmacao("Deseja excluir '" + identificador + "'?")) {
                     Administrador admin = (Administrador) tela.getUsuarioLogado();
                     admin.excluirUsuario(identificador);
                     tela.exibirMensagemSucesso("Usuário excluído com sucesso!");
-                } else {
-                    tela.exibirMensagemErro("Você não tem permissão para esta ação.");
                 }
+            } else {
+                tela.exibirMensagemErro("Usuário não ecnontrado.");
             }
         }
     }
@@ -101,13 +101,9 @@ public class ControlSistema {
             
             if (filmeEncontrado != null) {
                 if (tela.pedirConfirmacao("Deseja excluir o filme '" + nomeFilme + "'?")) {
-                    if (tela.getUsuarioLogado() instanceof GerenciaFilme) {
-                        GerenciaFilme gerente = (GerenciaFilme) tela.getUsuarioLogado();
-                        gerente.excluirFilme(filmeEncontrado);
-                        tela.exibirMensagemSucesso("Filme excluído com sucesso!");
-                    } else {
-                        tela.exibirMensagemErro("Você não tem permissão para excluir filmes.");
-                    }
+                    GerenciaFilme gerente = (GerenciaFilme) tela.getUsuarioLogado();
+                    gerente.excluirFilme(filmeEncontrado);
+                    tela.exibirMensagemSucesso("Filme excluído com sucesso!");
                 }
             } else {
                 tela.exibirMensagemErro("Filme não encontrado!");
