@@ -5,11 +5,13 @@ import javax.swing.UIManager;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 
+import resources.DatabaseReadyCheck;
+
 public class TelaMain {
 
     public static void main(String[] args) {
 
-
+        DatabaseReadyCheck.verificarEInicializarBancos();
         
         try {
             UIManager.setLookAndFeel(new FlatDarkLaf()); // Ou FlatLightLaf()
