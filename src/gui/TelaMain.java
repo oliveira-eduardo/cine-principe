@@ -22,8 +22,7 @@ public class TelaMain {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                TelaPrincipal tela = new TelaPrincipal();
-                tela.setVisible(true);
+                Navegacao.iniciar(new TelaPrincipal());
             }
         });
 

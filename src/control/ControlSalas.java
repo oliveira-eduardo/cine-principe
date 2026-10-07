@@ -1,6 +1,7 @@
 package control;
 import gui.TelaFilmes;
 import gui.TelaSalas;
+import gui.Navegacao;
 
 public class ControlSalas {
     private TelaSalas tela;
@@ -15,11 +16,10 @@ public class ControlSalas {
         tela.getBilheteSala().setSala(tela.getSalasCine()[index]);
 
         TelaFilmes mostrarFilme = new TelaFilmes(tela);
-        mostrarFilme.setVisible(true);
-        tela.setVisible(false);
+        Navegacao.exibir(mostrarFilme);
     }
 
     public void deslogar() {
-        tela.dispose();
+        Navegacao.fechar();
     }
 }

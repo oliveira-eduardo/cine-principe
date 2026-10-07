@@ -3,6 +3,7 @@ package control;
 import exceptions.VendasException;
 import gui.TelaCadeira;
 import gui.TelaProdutos;
+import gui.Navegacao;
 import model.Bilhete;
 
 public class ControlCadeira {
@@ -51,8 +52,7 @@ public class ControlCadeira {
         tela.getBilhetes().clear();
         tela.getCoordenadasEscolhidas().clear();
         
-        tela.getTelafilmes().setVisible(true);
-        tela.dispose();
+        Navegacao.voltar();
     }
 
     public void avancarParaSnacks() {
@@ -61,8 +61,7 @@ public class ControlCadeira {
                 throw new VendasException("Não é possível avançar, escolha pelo menos 1 assento");
             }
             TelaProdutos lanches = new TelaProdutos(tela);
-            lanches.setVisible(true);
-            tela.setVisible(false);
+            Navegacao.exibir(lanches);
         } catch (VendasException ex) {
             tela.exibirMensagemAviso(ex.getMessage(), "Nenhum Assento Selecionado");
         }

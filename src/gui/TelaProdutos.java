@@ -136,8 +136,7 @@ public class TelaProdutos extends JFrame {
         btnVoltar.setPreferredSize(new Dimension(160, 35));
 
         btnVoltar.addActionListener(e -> {
-            telaCadeira.setVisible(true);
-            this.dispose();
+            Navegacao.voltar();
         });
 
         JButton btnAvancar = new JButton("Ir para Pagamento");
@@ -160,9 +159,7 @@ public class TelaProdutos extends JFrame {
                     "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             }
             
-            TelaDesconto telaDesconto = new TelaDesconto(this);
-            telaDesconto.setVisible(true);
-            this.setVisible(false);
+            Navegacao.exibir(new TelaDesconto(this));
         });
 
         painelBotoes.add(btnVoltar);

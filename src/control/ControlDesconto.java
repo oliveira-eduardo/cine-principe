@@ -3,6 +3,7 @@ package control;
 import gui.TelaDesconto;
 import data.CriticosData;
 import gui.TelaCheckout;
+import gui.Navegacao;
 import model.Usuario;
 import model.CupomPromocional;
 
@@ -15,8 +16,7 @@ public class ControlDesconto {
     }
 
     public void voltar() {
-        tela.getTelaProdutos().setVisible(true);
-        tela.dispose();
+        Navegacao.voltar();
     }
 
     public void avancar(Usuario usuario) {
@@ -49,8 +49,6 @@ public class ControlDesconto {
         }
 
         TelaCheckout telaCheckout = new TelaCheckout(tela);
-        telaCheckout.setVisible(true);
-        
-        tela.dispose();
+        Navegacao.exibir(telaCheckout);
     }
 }

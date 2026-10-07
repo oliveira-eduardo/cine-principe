@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import exceptions.VendasException;
 import gui.TelaCadeira;
 import gui.TelaFilmes;
+import gui.Navegacao;
 import service.Sessao;
 
 public class ControlFilme {
@@ -33,21 +34,18 @@ public class ControlFilme {
             
             
             TelaCadeira cadeiras = new TelaCadeira(tela);
-            cadeiras.setVisible(true);
-            tela.setVisible(false);
+            Navegacao.exibir(cadeiras);
 
         } catch (VendasException ex) {
             tela.exibirMensagemErro(ex.getMessage());
         }
     }
     public void voltarParaSalas() {
-        tela.getSalasCine().setVisible(true);
-        tela.dispose();
+        Navegacao.voltar();
     }
     
     public void deslogar() {
         gui.TelaPrincipal telaPrincipal = new gui.TelaPrincipal();
-        telaPrincipal.setVisible(true);
-        tela.dispose();
+        Navegacao.exibir(telaPrincipal);
     }
 }

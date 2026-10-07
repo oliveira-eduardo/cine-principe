@@ -69,7 +69,7 @@ public class TelaAlterarFilme extends JFrame {
             );
 
             if (sucesso) {
-                dispose(); 
+                Navegacao.voltar();
             }
         });
 

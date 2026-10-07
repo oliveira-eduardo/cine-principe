@@ -89,7 +89,7 @@ public class TelaAlterarUsuario extends JFrame {
             );
 
             if (sucesso) {
-                dispose();
+                Navegacao.voltar();
             }
         });
 

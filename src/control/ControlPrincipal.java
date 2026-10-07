@@ -1,10 +1,8 @@
 package control;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import gui.TelaCadastroUsuario;
 import gui.TelaLogin;
+import gui.Navegacao;
 import gui.TelaPrincipal;
 
 public class ControlPrincipal {
@@ -16,32 +14,12 @@ public class ControlPrincipal {
 
     public void abrirLogin() {
 
-        tela.configurarBotoesAtivos(false);
-
         TelaLogin telaLogin = new TelaLogin();
-        
-        telaLogin.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent windowEvent) {
-                tela.configurarBotoesAtivos(true);
-            }
-        });
-        
-        telaLogin.setVisible(true);
+        Navegacao.exibir(telaLogin);
     }
 
     public void abrirCadastro() {
-        tela.configurarBotoesAtivos(false);
-
         TelaCadastroUsuario telaCadastro = new TelaCadastroUsuario();
-        
-        telaCadastro.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent windowEvent) {
-                tela.configurarBotoesAtivos(true);
-            }
-        });
-
-        telaCadastro.setVisible(true);
+        Navegacao.exibir(telaCadastro);
     }
 }

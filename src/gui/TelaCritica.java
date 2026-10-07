@@ -165,7 +165,7 @@ public class TelaCritica extends JFrame {
                     "Crítica publicada com sucesso!\nObrigado por avaliar '" + filme.getNome() + "'.", 
                     "Sucesso", 
                     JOptionPane.INFORMATION_MESSAGE);
-                dispose(); 
+                Navegacao.voltar();
             } else {
                 JOptionPane.showMessageDialog(this, resultado, "Aviso", JOptionPane.WARNING_MESSAGE);
             }

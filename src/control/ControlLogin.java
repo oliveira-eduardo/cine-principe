@@ -9,6 +9,7 @@ import data.UsuariosData;
 import gui.TelaLogin;
 import gui.TelaSalas;
 import gui.TelaSistema;
+import gui.Navegacao;
 import model.Administrador;
 import model.Bilhete;
 import model.Funcionario;
@@ -38,8 +39,7 @@ public class ControlLogin {
 
                 tela.exibirMensagemInformativa("Bem-vindo, " + adm.getNome() + "!", "Sucesso");
                 TelaSistema telaSistema = new TelaSistema(adm);
-                telaSistema.setVisible(true);
-                tela.dispose();
+                Navegacao.exibir(telaSistema);
                 
             } else if (FuncionariosData.pegar(login) != null) {
                 Funcionario func = FuncionariosData.pegar(login);
@@ -50,8 +50,7 @@ public class ControlLogin {
 
                 tela.exibirMensagemInformativa("Bem-vindo, " + func.getNome() + "!", "Sucesso");
                 TelaSistema telaSistema = new TelaSistema(func);
-                telaSistema.setVisible(true);
-                tela.dispose();
+                Navegacao.exibir(telaSistema);
 
             } else {
                 Usuario usuario = UsuariosData.pegar(login);
@@ -73,8 +72,7 @@ public class ControlLogin {
                 bilhete.setUsuario(usuario);
                 
                 TelaSalas telaSalas = new TelaSalas(minhasSalas, bilhete);
-                telaSalas.setVisible(true);
-                tela.dispose();
+                Navegacao.exibir(telaSalas);
             }
 
         } catch (Exception ex) {

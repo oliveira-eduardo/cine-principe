@@ -143,7 +143,7 @@ public class TelaCadastroUsuario extends JFrame {
                     "Sucesso", 
                     JOptionPane.INFORMATION_MESSAGE);
                 
-                dispose(); 
+                Navegacao.voltar();
 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Erro ao processar os dados.", "Erro", JOptionPane.ERROR_MESSAGE);

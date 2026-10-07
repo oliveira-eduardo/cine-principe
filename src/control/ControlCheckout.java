@@ -2,6 +2,7 @@ package control;
 
 import gui.TelaCritica;
 import gui.TelaCheckout;
+import gui.Navegacao;
 import model.Bilhete;
 import model.Critico;
 import model.Estudante;
@@ -85,18 +86,18 @@ public class ControlCheckout {
         if (usuarioFinal instanceof Critico) {
             Critico critico = CriticosData.pegar(usuarioFinal.getUser());
             TelaCritica telaCritica = new TelaCritica(critico, bilhetes.get(0).getSessao().getFilme());
-            telaCritica.setVisible(true);
-            tela.dispose();
+            Navegacao.exibir(telaCritica);
+            return;
         }
 
-        tela.dispose();
+        Navegacao.fechar();
 
     }
     public void cancelarCompra() {
-        tela.dispose();
-        
         if (tela.getTelaDesconto() != null) {
-            tela.getTelaDesconto().setVisible(true);
+            Navegacao.voltar();
+        } else {
+            Navegacao.fechar();
         }
     }
 }

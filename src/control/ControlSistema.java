@@ -14,8 +14,7 @@ import repository.GerenciaFilme;
 import data.UsuariosData;
 import data.FilmeData;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import gui.Navegacao;
 
 public class ControlSistema {
 
@@ -26,18 +25,8 @@ public class ControlSistema {
     }
 
     public void abrirCadastroUsuario() {
-        tela.setBotoesHabilitados(false); 
-
         TelaCadastroUsuario telaCadastro = new TelaCadastroUsuario();
-        
-        telaCadastro.addWindowListener(new WindowAdapter() { 
-            @Override
-            public void windowClosed(WindowEvent windowEvent) {
-                tela.setBotoesHabilitados(true); 
-            }
-        });
-
-        telaCadastro.setVisible(true);
+        Navegacao.exibir(telaCadastro);
     }
 
     public void alterarUsuario(String identificador) {
@@ -46,7 +35,7 @@ public class ControlSistema {
 
             if (userEncontrado != null) {
                 TelaAlterarUsuario telaAlterar = new TelaAlterarUsuario(tela.getUsuarioLogado(), userEncontrado);
-                telaAlterar.setVisible(true);
+                Navegacao.exibir(telaAlterar);
             } else {
                 tela.exibirMensagemErro("Usuário não encontrado!");
             }
@@ -68,18 +57,8 @@ public class ControlSistema {
     }
 
     public void abrirCadastroFilme() {
-        tela.setBotoesHabilitados(false); 
-
         TelaCadastroFilme telaCadastro = new TelaCadastroFilme(tela.getUsuarioLogado());
-        
-        telaCadastro.addWindowListener(new WindowAdapter() { 
-            @Override
-            public void windowClosed(WindowEvent windowEvent) {
-                tela.setBotoesHabilitados(true); 
-            }
-        });
-
-        telaCadastro.setVisible(true);
+        Navegacao.exibir(telaCadastro);
     }
 
     public void alterarFilme(String nomeFilme) {
@@ -88,7 +67,7 @@ public class ControlSistema {
 
             if (filmeEncontrado != null) {
                 TelaAlterarFilme telaAlterar = new TelaAlterarFilme(tela.getUsuarioLogado(), filmeEncontrado);
-                telaAlterar.setVisible(true);
+                Navegacao.exibir(telaAlterar);
             } else {
                 tela.exibirMensagemErro("Filme não encontrado!");
             }
@@ -113,7 +92,6 @@ public class ControlSistema {
 
     public void deslogar() {
         TelaLogin telaLogin = new TelaLogin();
-        telaLogin.setVisible(true);
-        tela.dispose();
+        Navegacao.exibir(telaLogin);
     }
 }

@@ -1,6 +1,7 @@
 package control;
 
 import gui.TelaCadastroFilme;
+import gui.Navegacao;
 import model.Filme;
 import repository.GerenciaFilme;
 
@@ -35,7 +36,7 @@ public class ControlCadastroFilme {
                 gerente.incluirFilme(novoFilme); 
 
                 tela.exibirMensagemSucesso("Filme '" + novoFilme.getNome() + "' cadastrado com sucesso!");
-                tela.dispose();
+                Navegacao.voltar();
             } else {
                 tela.exibirMensagemErro("Você não possui permissão para cadastrar filmes.");
             }
